@@ -12,8 +12,8 @@ Open pull requests (PRs) for review and staging deployment.
 ### 1. Clone and Sync the Repository
 
 ```bash
-git clone https://github.com/your-org/ebike-frontend.git
-cd ebike-frontend
+git clone https://github.com/Siam3h/breezo_ui.git
+cd breezo_ui
 git checkout develop
 git pull origin develop
 ```
