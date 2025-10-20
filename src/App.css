@@ -1,13 +1,12 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   text-align: center;
 }
 
 .logo {
   height: 6em;
-  padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -41,8 +40,6 @@
   color: #888;
 }
 
-
-
 /* Hide scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -50,4 +47,17 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+/* Local or hosted custom fonts */
+@font-face {
+  font-family: "Agrandir Grand";
+  src: url("/fonts/AgrandirGrand.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Palm Club";
+  src: url("/fonts/PalmClub.woff2") format("woff2");
 }
