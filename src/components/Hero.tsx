@@ -32,16 +32,16 @@ const Hero = () => {
       <div className="relative z-20 flex flex-col items-center justify-center text-center text-white px-6 sm:px-8 md:px-12 space-y-6 sm:space-y-8 max-w-3xl pt-24 sm:pt-28 lg:pt-32">
         {/* Main Title */}
         <div className="flex flex-col items-center leading-none">
-          <h1 className="font-poppins text-5xl sm:text-6xl lg:text-6xl font-extrabold text-breezo-blue tracking-tight">
+          <h1 className="font-monoton text-5xl sm:text-6xl lg:text-6xl font-extrabold text-white tracking-tight">
             BREEZO
           </h1>
-          <h2 className="font-pacifico text-5xl sm:text-6xl lg:text-6xl text-breezo-orange mt-2 italic">
+          <h2 className="font-monoton text-4xl sm:text-4xl lg:text-4xl text-breezo-orange mt-2">
             Electric
           </h2>
         </div>
 
         {/* Subtitle */}
-        <p className="text-base sm:text-lg md:text-[14px] text-grey drop-shadow-md  font-montserrat">
+        <p className="text-base sm:text-lg md:text-[14px] text-grey drop-shadow-md  font-saira">
           Reimagining How You Move
         </p>
 
@@ -49,9 +49,9 @@ const Hero = () => {
         <div className="flex justify-center">
           <Button
             onClick={handleFindBikes}
-            className="bg-breezo-green hover:bg-breezo-green-dark text-[#404040] rounded-lg px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base transition duration-300 font-montserrat"
+            className="bg-breezo-green hover:bg-breezo-green-dark text-[#404040] rounded-lg px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base transition duration-300 font-saira"
           >
-            Ignite Your Ride
+            Ignite your Ride
           </Button>
         </div>
       </div>
