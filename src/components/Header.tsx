@@ -2,11 +2,10 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import AnimatedIcon from "./AnimatedIcon";
-
-import logo from "/logo4.png";
+import logo_white from "/white_logo.png";
+import logo_blue from "/logo4.png";
 import bikeAnimation from "@/assets/lottie/bike.json";
 import accountAnimation from "@/assets/lottie/account.json";
-import DownloadIcon from "@/assets/downloadIcon.svg";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +13,11 @@ const Header = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
 
   useEffect(() => {
+    const img1 = new Image();
+    const img2 = new Image();
+    img1.src = logo_white;
+    img2.src = logo_blue;
+
     const handleScroll = () =>
       setScrolled(window.scrollY > window.innerHeight * 0.4);
     window.addEventListener("scroll", handleScroll);
@@ -35,7 +39,7 @@ const Header = () => {
         {/* Logo */}
         <a href="#">
           <img
-            src={logo}
+            src={scrolled ? logo_blue : logo_white }
             alt="Breezo Logo"
             className="h-[35px] transition-transform duration-300"
           />

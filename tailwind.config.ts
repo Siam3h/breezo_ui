@@ -19,9 +19,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        pacifico: ["Pacifico", "cursive"],
-        montserrat: ["Montserrat", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],      
         monoton: ['Monoton', 'cursive'], 
         saira: ['Saira', 'serif']
       },

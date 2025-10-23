@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import logo from "/logo.png"
+import logo from "/white_logo.png"
 
 export default function Footer() {
   const [open, setOpen] = useState(null);
