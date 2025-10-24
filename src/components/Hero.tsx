@@ -3,6 +3,7 @@ import desktopHero from "/ebike_hero41.webp";
 import mobileHero from "/ebike_hero_mobile.webp";
 import LoadingScreen from "./LoadingScreen";
 import { useState, useEffect } from "react";
+import AlternatingTagline from "./AlternatingTagline";
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -11,11 +12,11 @@ const Hero = () => {
   useEffect(() => {
     // Set initial mobile state and preload appropriate image
     const imageSrc = isMobile ? mobileHero : desktopHero;
-    
+
     // Check if image is already cached
     const img = new Image();
     img.src = imageSrc;
-    
+
     if (img.complete) {
       setIsLoaded(true);
     } else {
@@ -46,7 +47,7 @@ const Hero = () => {
     <>
       {/* Show loading screen until image is loaded */}
       {!isLoaded && <LoadingScreen />}
-      
+
       <section
         className={`relative h-[100dvh] overflow-hidden flex items-center justify-center transition-opacity duration-500 ${
           isLoaded ? "opacity-100" : "opacity-0"
@@ -77,9 +78,9 @@ const Hero = () => {
               Electric
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-[14px] text-gray-200 drop-shadow-md font-saira">
-            Reimagining How You Move
-          </p>
+          <div className="text-base text-left sm:text-[14px] md:text-[16px] text-gray-200 drop-shadow-md font-saira">
+            <AlternatingTagline />
+          </div>
           <div className="flex justify-center">
             <Button
               onClick={handleFindBikes}
