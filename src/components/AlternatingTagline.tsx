@@ -2,6 +2,7 @@ import { TypeAnimation } from "react-type-animation";
 
 const AlternatingTagline = () => {
   return (
+
     <div className="text-center">
       <p className="inline text-base sm:text-lg md:text-xl text-white">
         Rent{" "}
@@ -18,6 +19,7 @@ const AlternatingTagline = () => {
         E-Bikes and E-Scooters for your daily commute.
       </p>
     </div>
+
   );
 };
 
