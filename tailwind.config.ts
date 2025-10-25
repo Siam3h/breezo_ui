@@ -21,7 +21,8 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],      
         monoton: ['Monoton', 'cursive'], 
-        saira: ['Saira', 'serif']
+        saira: ['Saira', 'serif'],
+        lexend: ['Lexend', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
