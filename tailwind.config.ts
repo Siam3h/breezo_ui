@@ -23,6 +23,7 @@ export default {
         monoton: ['Monoton', 'cursive'], 
         saira: ['Saira', 'serif'],
         lexend: ['Lexend', 'serif'],
+        caprasimo: ["Caprasimo", "sans-serif"]
       },
       colors: {
         border: "hsl(var(--border))",
