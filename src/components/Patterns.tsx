@@ -1,5 +1,5 @@
+import pattern from "@/assets/PatternDesigns1.jpg";
 
-import pattern from "@/assets/ExtraDesigns.jpg";
 
 export default function PatternDivider() {
   return (
