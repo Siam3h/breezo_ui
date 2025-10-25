@@ -2,7 +2,7 @@ import { TypeAnimation } from "react-type-animation";
 
 const AlternatingTagline = () => {
   return (
-    <p className="w-[60%] sm:w-[60%] md:w-[60%] lg:w-[60%] xl:w-[60%] max-w-md mx-auto">
+    <p className="text-center text-base sm:text-lg md:text-xl font-medium whitespace-nowrap inline-block">
       Rent{" "}
       <span className="font-bold text-breezo-green">
         <TypeAnimation
@@ -10,11 +10,11 @@ const AlternatingTagline = () => {
           wrapper="span"
           cursor={true}
           repeat={Infinity}
-          speed={20} // typing speed (lower = slower)
-          deletionSpeed={20} // speed when deleting
+          speed={20}
+          deletionSpeed={20}
         />
-      </span>{" "} 
-      electric assisted bikes and scooters for your daily city commute.
+      </span>{" "}
+      E-bikes and Scooters.
     </p>
   );
 };
