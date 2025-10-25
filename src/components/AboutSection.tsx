@@ -1,39 +1,41 @@
-// src/components/AboutSection.tsx
-import React from "react";
 import { Button } from "@/components/ui/button";
 
 const AboutSection = () => {
   return (
-    <section className="bg-breezo-orange text-white py-16 px-6 md:px-20">
-      <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-16">
-        {/* Text Content */}
-        <div className="flex-1 text-center md:text-left">
-          <h2 className="font-monoton text-2xl sm:text-2xl lg:text-3xl font-bold mb-6 leading-tight">
-            Reimagining How You Move
-          </h2>
-          <p className="font-saira text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed mb-8">
-            Breezo Electric is a Micro Mobility Sharing Platform transforming
-            Urban mobility in Kenya. We make getting around the city easier and
-            cleaner with our shared electric bikes and scooters. Whether
-            commuting, running errands or connecting to public transport, Breezo
-            Electric helps you get to your destination faster, glide past the
-            traffic while cutting down on pollution.
-          </p>
+    <section className="bg-[#FFFEFE] border-t-2 border-breezo-orange py-8 px-6 sm:px-8 lg:px-20 text-center">
+      {/* Tagline */}
+      <p className="text-breezo-blue uppercase tracking-[0.25em] text-sm sm:text-base font-semibold mb-4">
+        Solving your last mile connectivity gap
+      </p>
 
-          {/* Single Button */}
-          <Button className="bg-breezo-green hover:bg-breezo-green-dark text-[#404040] rounded-lg px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base transition duration-300 font-saira">
-            Read More
-          </Button>
-        </div>
+      {/* Main Heading */}
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-lexend text-gray-900 leading-tight mb-6 uppercase">
+        Reimagine How{" "} <br />
+        <span className="text-breezo-green font-extrabold drop-shadow-sm">You Move</span>
+      </h2>
 
-        {/* Landscape Image */}
-        <div className="flex-1 flex justify-center md:justify-end">
-          <img
-            src="/ebike_hero2.jpeg" // ✅ put your landscape image here
-            alt="Electric bike landscape"
-            className="w-full max-w-[550px] md:max-w-[550px] h-auto object-cover rounded-2xl shadow-xl"
-          />
-        </div>
+      {/* Body Text */}
+      <p className="max-w-3xl mx-auto text-base sm:text-lg text-gray-700 leading-relaxed text-justify font-lexend">
+        <span className="font-semibold text-gray-900">Breezo Electric</span> is a
+        Micro Mobility Sharing Platform transforming urban mobility in Kenya.
+        We make getting around the city easier and cleaner with our shared
+        electric bikes and scooters. Whether commuting, running errands, or
+        connecting to public transport, Breezo Electric helps you move faster,
+        glide past traffic, and reduce pollution — reimagining sustainable
+        mobility for everyone.
+      </p>
+
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 py-8">
+        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-8 py-6 rounded-full shadow-md transition-all duration-300">
+          Read More
+        </Button>
+        <Button
+          variant="outline"
+          className="border-breezo-green text-breezo-green hover:bg-breezo-green hover:text-white text-base sm:text-lg px-8 py-6 rounded-full transition-all duration-300"
+        >
+          Download App
+        </Button>
       </div>
     </section>
   );
