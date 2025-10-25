@@ -2,7 +2,7 @@ import { TypeAnimation } from "react-type-animation";
 
 const AlternatingTagline = () => {
   return (
-    <p className="text-center text-base sm:text-lg md:text-xl font-medium whitespace-nowrap inline-block">
+    <p className="text-center text-base sm:text-lg md:text-xl font-bbh font-normal whitespace-nowrap inline-block">
       Rent{" "}
       <span className="font-bold text-breezo-green">
         <TypeAnimation
