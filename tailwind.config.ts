@@ -19,11 +19,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],      
-        monoton: ['Monoton', 'cursive'], 
-        saira: ['Saira', 'serif'],
-        lexend: ['Lexend', 'serif'],
-        caprasimo: ["Caprasimo", "sans-serif"]
+        poppins: ["Poppins", "sans-serif"],
+        monoton: ["Monoton", "cursive"],
+        saira: ["Saira", "serif"],
+        lexend: ["Lexend", "serif"],
+        caprasimo: ["Caprasimo", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -141,5 +141,8 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwind-scrollbar-hide"), // 👈 Add this line
+  ],
 } satisfies Config;
