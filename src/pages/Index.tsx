@@ -2,6 +2,7 @@ import HowToBreezoHeader from "@/components/HowToBreezoHeader";
 import HowToBreezoMobile from "@/components/HowToBreezoMobile";
 import HowToBreezoSection from "@/components/HowToBreezoSection";
 import PatternDivider from "@/components/Patterns";
+import PricingSection from "@/components/PricingSection";
 import { lazy, Suspense } from "react";
 
 const Header = lazy(() => import("@/components/Header"));
@@ -30,6 +31,8 @@ export default function Index() {
         <div className="block lg:hidden">
           <HowToBreezoMobile />
         </div>
+
+        <PricingSection />
 
         <Footer />
       </Suspense>

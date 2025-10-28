@@ -67,7 +67,7 @@ export default function HowToBreezo() {
     <>
       <section
         ref={sectionRef}
-        className="relative flex flex-col justify-center bg-white text-gray-900 h-[620px] py-1 px-6 sm:px-10 lg:px-20 overflow-hidden"
+        className="relative flex flex-col justify-center bg-white text-gray-900 h-screen py-1 px-6 sm:px-10 lg:px-20 overflow-hidden"
       >
         {/* Main Content Grid */}
         <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl mx-auto lg:gap-x-20">
