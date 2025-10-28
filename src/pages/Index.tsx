@@ -1,3 +1,6 @@
+import HowToBreezoHeader from "@/components/HowToBreezoHeader";
+import HowToBreezoMobile from "@/components/HowToBreezoMobile";
+import HowToBreezoSection from "@/components/HowToBreezoSection";
 import PatternDivider from "@/components/Patterns";
 import { lazy, Suspense } from "react";
 
@@ -16,6 +19,18 @@ export default function Index() {
         <PatternDivider />
         <AboutSection />
         <ImpactSection />
+
+        {/* Desktop version — hidden on small screens */}
+        <div className="hidden lg:block">
+          <HowToBreezoHeader />
+          <HowToBreezoSection />
+        </div>
+
+        {/* Mobile version — visible only on small screens */}
+        <div className="block lg:hidden">
+          <HowToBreezoMobile />
+        </div>
+
         <Footer />
       </Suspense>
     </div>
