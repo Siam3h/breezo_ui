@@ -1,3 +1,4 @@
+import FaqSection from "@/components/FaqSection";
 import GoalsSection from "@/components/GoalsSection";
 import HowToBreezoHeader from "@/components/HowToBreezoHeader";
 import HowToBreezoMobile from "@/components/HowToBreezoMobile";
@@ -37,6 +38,7 @@ export default function Index() {
         <PricingSection />
         <GoalsSection />
         <HowToPartnerSection />
+        <FaqSection />
         <Footer />
       </Suspense>
     </div>
