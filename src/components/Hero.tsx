@@ -54,7 +54,7 @@ const Hero = () => {
         }`}
       >
         {/* Background Images */}
-        <div className="fixed inset-0 -z-10">
+        <div className="fixed inset-0 -z-10 ">
           <picture>
             <source media="(max-width: 639px)" srcSet={mobileHero} />
             <img

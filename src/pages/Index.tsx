@@ -1,3 +1,4 @@
+import GoalsSection from "@/components/GoalsSection";
 import HowToBreezoHeader from "@/components/HowToBreezoHeader";
 import HowToBreezoMobile from "@/components/HowToBreezoMobile";
 import HowToBreezoSection from "@/components/HowToBreezoSection";
@@ -33,7 +34,7 @@ export default function Index() {
         </div>
 
         <PricingSection />
-
+        <GoalsSection />
         <Footer />
       </Suspense>
     </div>
