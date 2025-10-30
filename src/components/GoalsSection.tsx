@@ -46,7 +46,7 @@ export default function GoalsSection({
             ),
           },
         ]}
-        style={{ minHeight: "470px" }}
+        style={{ minHeight: "520px" }}
         className="relative overflow-hidden"
       >
         {/* ---------- DESKTOP ---------- */}

@@ -2,6 +2,7 @@ import GoalsSection from "@/components/GoalsSection";
 import HowToBreezoHeader from "@/components/HowToBreezoHeader";
 import HowToBreezoMobile from "@/components/HowToBreezoMobile";
 import HowToBreezoSection from "@/components/HowToBreezoSection";
+import HowToPartnerSection from "@/components/HowToPartnerSection";
 import PatternDivider from "@/components/Patterns";
 import PricingSection from "@/components/PricingSection";
 import { lazy, Suspense } from "react";
@@ -35,6 +36,7 @@ export default function Index() {
 
         <PricingSection />
         <GoalsSection />
+        <HowToPartnerSection />
         <Footer />
       </Suspense>
     </div>
