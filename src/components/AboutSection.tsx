@@ -27,12 +27,12 @@ const AboutSection = () => {
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row justify-center items-center gap-4 py-8">
-        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-8 py-6 rounded-full shadow-md transition-all duration-300">
+        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-8 py-6 rounded-none shadow-md transition-all duration-300">
           Read More
         </Button>
         <Button
           variant="outline"
-          className="border-breezo-green text-breezo-green hover:bg-breezo-green hover:text-white text-base sm:text-lg px-8 py-6 rounded-full transition-all duration-300"
+          className="border-breezo-green text-breezo-green hover:bg-breezo-green hover:text-white text-base sm:text-lg px-8 py-6 rounded-none transition-all duration-300"
         >
           Download App
         </Button>
