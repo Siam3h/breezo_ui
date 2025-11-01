@@ -17,7 +17,7 @@ const impactsData = [
   {
     id: "impact-traffic",
     title: "Reducing Traffic Congestion",
-    image: "/reduced_traffic.jpg",
+    image: "/reduce_traffic.jpg",
     description:
       "By offering compact electric transport options, Breezo helps decongest roads, reduce travel times, and reclaim urban spaces once occupied by idle vehicles — making daily commutes smoother and streets safer.",
     link: "/impact/traffic", // New Link
@@ -160,7 +160,7 @@ export default function ImpactSection() {
 
       {/* Button */}
       <div className="flex justify-center mt-12">
-        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-10 py-6 rounded-full shadow-md transition-all duration-300 font-lexend">
+        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-10 py-6 rounded-none shadow-md transition-all duration-300 font-lexend">
           Learn More
         </Button>
       </div>

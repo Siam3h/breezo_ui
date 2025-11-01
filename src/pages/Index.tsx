@@ -1,9 +1,8 @@
-import HowToBreezoHeader from "@/components/HowToBreezoHeader";
-import HowToBreezoMobile from "@/components/HowToBreezoMobile";
-import HowToBreezoSection from "@/components/HowToBreezoSection";
 import PatternDivider from "@/components/Patterns";
 import PricingSection from "@/components/PricingSection";
-import { lazy, Suspense } from "react";
+import HowToBreezo from "@/components/HowToBreezoSection";
+import PatternDivider2 from "@/components/Patterns1";
+import { lazy } from "react";
 
 const Header = lazy(() => import("@/components/Header"));
 const Hero = lazy(() => import("@/components/Hero"));
@@ -14,31 +13,15 @@ const Footer = lazy(() => import("@/components/Footer"));
 export default function Index() {
   return (
     <div className="min-h-screen">
-      <Suspense fallback={<div>Loading...</div>}>
         <Header />
         <Hero />
         <PatternDivider />
         <AboutSection />
         <ImpactSection />
-
-        {/* Desktop version — hidden on small screens */}
-        <div className="hidden lg:block">
-          <HowToBreezoHeader />
-          <HowToBreezoSection />
-        </div>
-
-        {/* Mobile version — visible only on small screens */}
-        <div className="block lg:hidden">
-          <HowToBreezoMobile />
-        </div>
-
-<<<<<<< HEAD
-=======
+      <PatternDivider2 />
+        <HowToBreezo />
         <PricingSection />
-
->>>>>>> 3f7c860 (Feature/pricing section (#24))
         <Footer />
-      </Suspense>
     </div>
   );
 }

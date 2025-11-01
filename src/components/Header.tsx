@@ -107,7 +107,7 @@ const Header = () => {
           </div>
 
           {/* Download App */}
-          <button className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-lg transition font-montserrat">
+          <button className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-none transition font-montserrat">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -1,137 +1,172 @@
-import React, { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
-// --- Register the GSAP ScrollTrigger plugin ---
-gsap.registerPlugin(ScrollTrigger);
+const impactsData = [
+  {
+    id: "step-download",
+    title: "1. Get the Breezo App",
+    image: "/breezo_app.webp",
+    description:
+      "Download the Breezo mobile app, install our PWA from the web, or dial our USSD code to access Breezo services instantly.",
+    link: "/start",
+  },
+  {
+    id: "step-find-station",
+    title: "2. Locate a Bike Station",
+    image: "/bike_station.jpg",
+    description:
+      "Open the app or use USSD to find the nearest Breezo bike station. Head to the location shown to access available bikes or scooters.",
+    link: "/locations",
+  },
+  {
+    id: "step-scan-unlock",
+    title: "3. Scan & Unlock",
+    image: "/scan_ride.jpg",
+    description:
+      "Once at the bike station, scan QR to unlock. Ensure you have at least 150 Breezos in your account to begin your ride.",
+    link: "/wallet",
+  },
+  {
+    id: "step-ride-return",
+    title: "4. Ride & Return",
+    image: "/ride_return.jpg",
+    description:
+      "Enjoy your ride! When done, return the bike to any Breezo station. Scan again, pay for your ride, and lock to complete the trip.",
+    link: "/how-it-works",
+  },
+  {
+    id: "step-business",
+    title: "For Corporates & Business Fleets",
+    image: "/corporate_fleet.jpg",
+    description:
+      "Looking to power your business fleet with Breezo bikes? Contact our support team for corporate and enterprise fleet solutions.",
+    link: "/business",
+  },
+];
 
-export default function HowToBreezo() {
-  const sectionRef = useRef(null); // The main section to be pinned
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function ImpactSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
-  const steps = [
+  const [sliderRef, instanceRef] = useKeenSlider(
     {
-      title: "Get the app and create an account",
-      description:
-        "Download the Breezo app and sign up in minutes. Create your account and verify your details to get started.",
-      image: "/app.jpg",
-    },
-    {
-      title: "Start your ride with a nearby vehicle",
-      description:
-        "Locate an e-bike or scooter, scan the QR code, and unlock instant mobility. Every ride is fast, safe, and 100% electric.",
-      image: "/ebike_hero2.jpeg",
-    },
-    {
-      title: "Breezo responsibly",
-      description:
-        "Park in designated areas, follow city rules, and charge responsibly to help keep our communities clean and traffic-free.",
-      image: "/breezo_responsibly.jpg",
-    },
-  ];
-
-  useEffect(() => {
-    const section = sectionRef.current;
-
-    // Set up the pinning and animation timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        pin: true,
-        start: "top top",
-        end: `+=${(steps.length - 1) * 100}%`,
-        scrub: 1,
-        onUpdate: (self) => {
-          // Determine the active step based on scroll progress
-          const newIndex = Math.min(
-            steps.length - 1,
-            Math.floor(self.progress * steps.length)
-          );
-          setActiveIndex(newIndex);
+      loop: false,
+      mode: "snap",
+      slides: { perView: 1.2, spacing: 20 },
+      created: (slider) => {
+        setLoaded(true);
+        slider.on("slideChanged", () => {
+          setCurrentSlide(slider.track.details.rel);
+        });
+      },
+      slideChanged: (slider) => {
+        setCurrentSlide(slider.track.details.rel);
+      },
+      breakpoints: {
+        "(min-width: 640px)": {
+          slides: { perView: 2, spacing: 24 },
+        },
+        "(min-width: 1024px)": {
+          slides: { perView: 3, spacing: 28 },
         },
       },
-    });
+    },
+    []
+  );
 
-    // Animate the progress line fill
-    tl.to(".progress-line-fill", { height: "100%", ease: "none" }, 0);
-
-    // Cleanup function
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      tl.kill();
-    };
-  }, [steps.length]);
+  const isAtStart = currentSlide === 0;
+  const isAtEnd =
+    loaded &&
+    instanceRef.current &&
+    currentSlide === instanceRef.current.track.details.slides.length - 1;
 
   return (
-    <>
-      <section
-        ref={sectionRef}
-<<<<<<< HEAD
-        className="relative flex flex-col justify-center bg-white text-gray-900 h-[620px] py-1 px-6 sm:px-10 lg:px-20 overflow-hidden"
-=======
-        className="relative flex flex-col justify-center bg-white text-gray-900 h-screen py-1 px-6 sm:px-10 lg:px-20 overflow-hidden"
->>>>>>> 3f7c860 (Feature/pricing section (#24))
-      >
-        {/* Main Content Grid */}
-        <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl mx-auto lg:gap-x-20">
-          {/* CORRECTED Left Side: Steps section now takes up half the screen */}
-          <div className="relative w-full lg:w-1/2 flex flex-col justify-center space-y-12">
-            {/* Connecting Line */}
-            <div className="absolute left-[12px] top-[24px] bottom-[24px] w-0.5 bg-gray-200">
-              <div
-                className="progress-line-fill w-full bg-breezo-green"
-                style={{ height: "0%" }}
-              ></div>
+    <section className="bg-[#0F0F0F] text-white py-16 px-6 sm:px-10 lg:px-20 text-center relative">
+      <p className="text-breezo-green uppercase tracking-[0.25em] text-sm sm:text-base font-semibold mb-4 font-lexend">
+        unlock freedom on two wheels      </p>
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-lexend text-white leading-tight mb-10 uppercase">
+        Ride the  <span className="text-breezo-green font-extrabold">Breezo</span> 
+        <br />    way</h2>
+
+      {/* Carousel Container - relative for arrow positioning */}
+      <div ref={sliderRef} className="keen-slider relative">
+        {impactsData.map((item) => (
+          // FIX: Wrap the slide content in an anchor tag
+          <a
+            key={item.id}
+            href={item.link} // Use the new link property
+            className="keen-slider__slide relative cursor-pointer block" // Added block for link to fill container
+            aria-label={`Read more about ${item.title}`}
+          >
+            {/* The slide div content is now inside the link */}
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-[420px] object-cover"
+            />
+            <div className="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 text-left">
+              <h3 className="text-xl sm:text-2xl font-bold font-lexend uppercase mb-3 leading-tight">
+                {item.title}
+              </h3>
+              <p className="text-gray-200 text-sm sm:text-base leading-relaxed font-lexend">
+                {item.description}
+              </p>
             </div>
+          </a>
+        ))}
 
-            {/* Steps Content */}
-            {steps.map((step, i) => (
-              <div
-                key={i}
-                className={`relative pl-10 transition-opacity duration-300 ${
-                  i === activeIndex ? "opacity-100" : "opacity-30"
+        {/* Floating Arrows */}
+        {loaded && instanceRef.current && (
+          <>
+            <button
+              onClick={(e) => {
+                // Prevent click from bubbling up to the anchor tag
+                e.preventDefault();
+                e.stopPropagation();
+                instanceRef.current?.prev();
+              }}
+              disabled={isAtStart}
+              aria-label="Previous impact slide"
+              className={`absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full 
+                         bg-white/10 opacity-30 focus:opacity-100 transition-opacity duration-300 z-10 ml-2 
+                         ${isAtStart
+                  ? "opacity-10 cursor-not-allowed"
+                  : "hover:opacity-100"
                 }`}
-              >
-                {/* Bullet */}
-                <div className="absolute left-0 top-0 w-6 h-6 bg-breezo-green rounded-md z-10"></div>
+            >
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </button>
+            <button
+              onClick={(e) => {
+                // Prevent click from bubbling up to the anchor tag
+                e.preventDefault();
+                e.stopPropagation();
+                instanceRef.current?.next();
+              }}
+              disabled={isAtEnd}
+              aria-label="Next impact slide"
+              className={`absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full 
+                         bg-white/10 opacity-30 focus:opacity-100 transition-opacity duration-300 z-10 mr-2 
+                         ${isAtEnd
+                  ? "opacity-10 cursor-not-allowed"
+                  : "hover:opacity-100"
+                }`}
+            >
+              <ChevronRight className="w-6 h-6 text-white" />
+            </button>
+          </>
+        )}
+      </div>
 
-                {/* Text Content */}
-                <div>
-                  <h3 className="text-xl font-bold font-lexend mb-2 leading-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 text-base leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* CORRECTED Right Side: Image section now takes up the other half */}
-          <div className="relative w-full lg:w-1/2 flex justify-center items-center mt-12 lg:mt-0 h-[70vh] max-h-[550px]">
-            {steps.map((step, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-full h-full flex justify-center items-center"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{
-                  opacity: i === activeIndex ? 1 : 0,
-                  scale: i === activeIndex ? 1 : 0.95,
-                }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              >
-                <img
-                  src={step.image}
-                  alt={step.title}
-                  className="w-auto h-full max-w-full object-cover rounded-2xl shadow-xl"
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+      {/* Button */}
+      <div className="flex justify-center mt-12">
+        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-10 py-6 rounded-none shadow-md transition-all duration-300 font-lexend">
+         Download Breezo 
+        </Button>
+      </div>
+    </section>
   );
 }
