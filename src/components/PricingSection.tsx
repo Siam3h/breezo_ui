@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 export default function PricingSection() {
   const plans = [
     {
+
       title: "Subscriptions",
       subtitle: "Unlimited unlocks + optional minutes",
       price: "From $15 / month",
@@ -46,6 +47,7 @@ export default function PricingSection() {
         "Best value for frequent riders",
       ],
       gradient: "from-pink-500 to-rose-700",
+
     },
   ];
 

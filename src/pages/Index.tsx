@@ -4,6 +4,7 @@ import HowToBreezo from "@/components/HowToBreezoSection";
 import PatternDivider2 from "@/components/Patterns1";
 import { lazy } from "react";
 
+
 const Header = lazy(() => import("@/components/Header"));
 const Hero = lazy(() => import("@/components/Hero"));
 const AboutSection = lazy(() => import("@/components/AboutSection"));
@@ -21,6 +22,7 @@ export default function Index() {
       <PatternDivider2 />
         <HowToBreezo />
         <PricingSection />
+
         <Footer />
     </div>
   );

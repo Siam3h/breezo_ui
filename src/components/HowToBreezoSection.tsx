@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Button } from "@/components/ui/button";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
@@ -88,7 +89,7 @@ export default function ImpactSection() {
       <p className="text-breezo-green uppercase tracking-[0.25em] text-sm sm:text-base font-semibold mb-4 font-lexend">
         unlock freedom on two wheels      </p>
       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-lexend text-white leading-tight mb-10 uppercase">
-        Ride the  <span className="text-breezo-green font-extrabold">Breezo</span> 
+        Ride the  <span className="text-breezo-green font-extrabold">Breezo</span>
         <br />    way</h2>
 
       {/* Carousel Container - relative for arrow positioning */}
@@ -164,7 +165,7 @@ export default function ImpactSection() {
       {/* Button */}
       <div className="flex justify-center mt-12">
         <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-10 py-6 rounded-none shadow-md transition-all duration-300 font-lexend">
-         Download Breezo 
+          Download Breezo
         </Button>
       </div>
     </section>
