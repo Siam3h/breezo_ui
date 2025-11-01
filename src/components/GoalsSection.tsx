@@ -56,7 +56,7 @@ export default function GoalsSection({
               Our Vision in Motion
             </p>
             <h2 className="text-4xl lg:text-5xl font-bold font-lexend uppercase">
-              Our <span className="text-breezo-green">Goals</span>
+              OUR <span className="text-breezo-green">Goals</span>
             </h2>
           </div>
 

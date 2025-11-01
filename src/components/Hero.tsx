@@ -78,13 +78,13 @@ const Hero = () => {
               Electric
             </h2>
           </div>
-          <div className="text-base text-left sm:text-[14px] md:text-[16px] text-gray-200 drop-shadow-md font-saira">
+          <div className="text-base text-left sm:text-[14px] md:text-[16px] text-gray-200 drop-shadow-md font-lexend">
             <AlternatingTagline />
           </div>
           <div className="flex justify-center">
             <Button
               onClick={handleFindBikes}
-              className="bg-breezo-green hover:bg-breezo-green-dark text-[#404040] rounded-lg px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base transition duration-300 font-saira"
+              className="uppercase bg-breezo-green hover:bg-breezo-green-dark text-white rounded-none px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base transition duration-300 font-lexend"
             >
               Ignite your Ride
             </Button>

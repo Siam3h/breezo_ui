@@ -4,20 +4,17 @@ import { motion } from "framer-motion";
 export default function PricingSection() {
   const plans = [
     {
-      title: "PAY-PER-RIDE",
-      subtitle: "Perfect for occasional users.",
-      price: "$1 per ride",
+      title: "UNLIMITED UNLOCKS",
+      subtitle: "Daily, weekly, or monthly options for regular commuters.",
       details: [
-        "Pay only for what you use",
-        "No subscription fees",
-        "Easy and flexible",
-      ],
+
+        "Save the unlock fee – every time. Enjoy unlimited unlocks with our most popular Voi Pass subscription, cancel anytime."],
       gradient: "from-emerald-400 to-green-600",
     },
     {
       title: "SUBSCRIPTION MODEL",
       subtitle: "Daily, weekly, or monthly options for regular commuters.",
-      price: "From $15 / month",
+      price: "From KES 650 / day",
       details: [
         "Unlimited rides",
         "Discounts and perks",
@@ -43,10 +40,10 @@ export default function PricingSection() {
       {/* Heading */}
       <div className="text-center mb-12">
         <p className="text-breezo-green uppercase tracking-[0.2em] text-xs font-semibold mb-2">
-          Pricing Options
+          moving smart while spending less
         </p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-black">
-          Our simple, straightforward pricing that suits you!
+        <h2 className="text-3xl sm:text-4xl font-bold text-black uppercase">
+          Travel your city on a budget
         </h2>
       </div>
 
@@ -59,7 +56,7 @@ export default function PricingSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
             viewport={{ once: true }}
-            className={`rounded-2xl shadow-lg p-8 text-white bg-gradient-to-br ${plan.gradient} hover:scale-[1.03] transition-transform duration-300`}
+            className={`rounded-2xl shadow-lg p-8 text-white bg-breezo-blue hover:scale-[1.03] transition-transform duration-300`}
           >
             <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
             <p className="text-sm text-white/90 mb-4">{plan.subtitle}</p>

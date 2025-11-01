@@ -160,7 +160,7 @@ export default function ImpactSection() {
 
       {/* Button */}
       <div className="flex justify-center mt-12">
-        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-10 py-6 rounded-full shadow-md transition-all duration-300 font-lexend">
+        <Button className="bg-breezo-green hover:bg-breezo-green/90 text-white text-base sm:text-lg px-10 py-6 rounded-none shadow-md transition-all duration-300 font-lexend">
           Learn More
         </Button>
       </div>

@@ -1,10 +1,9 @@
 import FaqSection from "@/components/FaqSection";
 import GoalsSection from "@/components/GoalsSection";
-import HowToBreezoHeader from "@/components/HowToBreezoHeader";
-import HowToBreezoMobile from "@/components/HowToBreezoMobile";
 import HowToBreezoSection from "@/components/HowToBreezoSection";
 import HowToPartnerSection from "@/components/HowToPartnerSection";
 import PatternDivider from "@/components/Patterns";
+import PatternDivider2 from "@/components/Pattern2";
 import PricingSection from "@/components/PricingSection";
 import { lazy, Suspense } from "react";
 
@@ -23,17 +22,11 @@ export default function Index() {
         <PatternDivider />
         <AboutSection />
         <ImpactSection />
-
-        {/* Desktop version — hidden on small screens */}
-        <div className="hidden lg:block">
-          <HowToBreezoHeader />
+        <PatternDivider2 />
           <HowToBreezoSection />
-        </div>
+     
 
-        {/* Mobile version — visible only on small screens */}
-        <div className="block lg:hidden">
-          <HowToBreezoMobile />
-        </div>
+
 
         <PricingSection />
         <GoalsSection />
