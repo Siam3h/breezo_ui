@@ -1,7 +1,39 @@
 import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { motion } from "framer-motion";
+
+function AutoplayPlugin({ interval = 3000 } = {}) {
+  return (slider) => {
+    let timeout;
+    let mouseOver = false;
+
+    function clearNextTimeout() {
+      clearTimeout(timeout);
+    }
+
+    function nextTimeout() {
+      clearTimeout(timeout);
+      if (mouseOver) return;
+      timeout = setTimeout(() => slider.next(), interval);
+    }
+
+    slider.on("created", () => {
+      slider.container.addEventListener("mouseover", () => {
+        mouseOver = true;
+        clearNextTimeout();
+      });
+      slider.container.addEventListener("mouseout", () => {
+        mouseOver = false;
+        nextTimeout();
+      });
+      nextTimeout();
+    });
+
+    slider.on("dragStarted", clearNextTimeout);
+    slider.on("animationEnded", nextTimeout);
+    slider.on("updated", nextTimeout);
+  };
+}
 
 function AutoplayPlugin({ interval = 3000 } = {}) {
   return (slider) => {
@@ -104,13 +136,9 @@ export default function PricingSection() {
       {/* Carousel */}
       <div ref={sliderRef} className="keen-slider max-w-7xl mx-auto">
         {plans.map((plan, i) => (
-          <motion.div
+          <div
             key={i}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: i * 0.08 }}
-            viewport={{ once: true }}
-            className={`keen-slider__slide font-lexend shadow-lg p-8 text-white bg-gradient-to-br ${plan.gradient} hover:scale-[1.03] transition-all duration-300`}
+            className={`keen-slider__slide font-lexend p-8 shadow-lg text-white bg-gradient-to-br ${plan.gradient}`}
           >
             <h3 className="text-2xl font-semibold uppercase mb-2">{plan.title}</h3>
             <p className="text-sm text-white/90 mb-1">{plan.subtitle}</p>
@@ -124,7 +152,20 @@ export default function PricingSection() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
+        ))}
+      </div>
+
+      {/* Dots */}
+      <div className="flex justify-center mt-6 gap-2">
+        {plans.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => instanceRef.current?.moveToIdx(i)}
+            className={`w-3 h-3 rounded-full ${
+              current === i ? "bg-breezo-green scale-125" : "bg-breezo-green/40"
+            }`}
+          />
         ))}
       </div>
 
