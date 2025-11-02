@@ -1,7 +1,6 @@
 import PatternDivider from "@/components/Patterns";
 import PricingSection from "@/components/PricingSection";
 import HowToBreezo from "@/components/HowToBreezoSection";
-import PatternDivider2 from "@/components/Patterns1";
 import { lazy } from "react";
 
 
@@ -19,7 +18,6 @@ export default function Index() {
         <PatternDivider />
         <AboutSection />
         <ImpactSection />
-      <PatternDivider2 />
         <HowToBreezo />
         <PricingSection />
 
