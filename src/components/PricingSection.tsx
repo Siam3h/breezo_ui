@@ -35,6 +35,39 @@ function AutoplayPlugin({ interval = 3000 } = {}) {
   };
 }
 
+function AutoplayPlugin({ interval = 3000 } = {}) {
+  return (slider) => {
+    let timeout;
+    let mouseOver = false;
+
+    function clearNextTimeout() {
+      clearTimeout(timeout);
+    }
+
+    function nextTimeout() {
+      clearTimeout(timeout);
+      if (mouseOver) return;
+      timeout = setTimeout(() => slider.next(), interval);
+    }
+
+    slider.on("created", () => {
+      slider.container.addEventListener("mouseover", () => {
+        mouseOver = true;
+        clearNextTimeout();
+      });
+      slider.container.addEventListener("mouseout", () => {
+        mouseOver = false;
+        nextTimeout();
+      });
+      nextTimeout();
+    });
+
+    slider.on("dragStarted", clearNextTimeout);
+    slider.on("animationEnded", nextTimeout);
+    slider.on("updated", nextTimeout);
+  };
+}
+
 export default function PricingSection() {
   const plans = [
     {
@@ -133,6 +166,21 @@ export default function PricingSection() {
               current === i ? "bg-breezo-green scale-125" : "bg-breezo-green/40"
             }`}
           />
+        ))}
+      </div>
+
+      {/* Dots */}
+      <div className="flex justify-center mt-6 gap-2">
+        {plans.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => instanceRef.current?.moveToIdx(i)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              current === i
+                ? "bg-breezo-green scale-150"
+                : "bg-breezo-green/40 hover:bg-breezo-green"
+            }`}
+          ></button>
         ))}
       </div>
     </section>
