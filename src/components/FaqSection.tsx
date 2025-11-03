@@ -52,35 +52,13 @@ export default function FaqSection() {
           "Yes, our app allows you to rent multiple vehicles from a single account. This feature is perfect for when you're riding with friends or family. Just follow the prompts in the app to unlock additional scooters.",
       },
     ],
-    API: [
-      {
-        question: "Do you have a developer API?",
-        answer:
-          "Yes, we provide a REST API for developers and partners who wish to integrate Breezo's services into their own applications. Our API can provide real-time data on vehicle locations, availability, and more.",
-      },
-      {
-        question: "How can I get access to the API?",
-        answer:
-          "To get an API key and access our documentation, please contact our partnership team through our website. We'll review your use case and provide you with the necessary credentials to get started.",
-      },
-      {
-        question: "What kind of data can I access?",
-        answer:
-          "Our API provides access to a range of data points, including real-time scooter and e-bike locations, battery levels, and system information. You can query for available vehicles within a specific geographic area to integrate into mapping or transportation services.",
-      },
-      {
-        question: "Is there API documentation available?",
-        answer:
-          "Absolutely. Once you are approved for API access, you will receive a link to our comprehensive API documentation. It includes detailed guides, examples, and endpoint references to help you with your integration.",
-      },
-    ],
   };
 
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const tabs = ["Riding", "Pricing", "API"];
+  const tabs = ["Riding", "Pricing"];
 
   return (
     <section className="bg-white text-gray-900 font-lexend py-20 px-6 sm:px-12">
@@ -93,15 +71,16 @@ export default function FaqSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 uppercase">
             Frequently asked questions
           </h2>
-          <p className="text-gray-600 text-lg">
-            Everything you need to know. Can’t find what you’re looking for?{" "}
+          <p className="text-gray-600 uppercase">
+            Can’t find what you’re looking for?{" "}
             <a
               href="#"
-              className="text-breezo-green font-semibold hover:underline"
+              className="text-breezo-green font-semibold hover:underline uppercase"
             >
+              <br />
               Chat to our friendly team!
             </a>
           </p>

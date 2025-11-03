@@ -57,7 +57,7 @@ export default function PricingSection() {
         "Best for: A user who needs mobility for a full day—work, meetings, errands",
         "Includes: Up to 45 minutes per ride, as many rides as needed within that 24-hour window (After 45 minutes in one ride, standard per-minute pricing may apply)",
       ],
-      gradient: "from-emerald-500 to-green-700",
+      gradient: "from-blue-500 to-indigo-700",
     },
     {
       title: "Weekly Pass",
@@ -68,7 +68,7 @@ export default function PricingSection() {
         "Best for: Frequent riders (e.g., daily commuters), university students during a busy week, or short-term stay users",
         "Includes: Up to 45 minutes per ride each day; active for 7 days",
       ],
-      gradient: "from-amber-500 to-orange-700",
+      gradient:  "from-blue-500 to-indigo-700",
     },
     {
       title: "Monthly Pass",
@@ -79,7 +79,7 @@ export default function PricingSection() {
         "Best for: Regular commuters with a predictable daily schedule—business professionals, campus residents, gig economy workers",
         "Includes: Full month access; 45 minutes per ride free within the pass structure",
       ],
-      gradient: "from-pink-500 to-rose-700",
+      gradient: "from-blue-500 to-indigo-700",
     },
     {
       title: "Student Pass",
@@ -90,7 +90,8 @@ export default function PricingSection() {
         "Best for: University and college students with tighter budgets who need daily mobility",
         "Includes: Discounted monthly rate, access to student-only promo periods, possibly campus-located docking stations",
       ],
-      gradient: "from-purple-500 to-violet-700",
+      gradient: "from-blue-500 to-indigo-700",
+
     },
     {
       title: "Corporate & Fleet Plans (B2B)",
@@ -101,7 +102,7 @@ export default function PricingSection() {
         "Delivery Rider Plan: KES 9,000 per month",
         "Fleet Leasing: KES 12,000 – KES 15,000 per bike per month",
       ],
-      gradient: "from-gray-700 to-gray-900",
+      gradient: "from-blue-500 to-indigo-700",
     },
   ];
 
@@ -148,9 +149,9 @@ export default function PricingSection() {
             <h3 className="text-2xl font-semibold uppercase mb-2">
               {plan.title}
             </h3>
-            <p className="text-sm text-white/90 mb-1">{plan.subtitle}</p>
+            <p className="text-sm text-white/90 mb-1 uppercase">{plan.subtitle}</p>
             <hr className="border-dotted border-white/60 my-3" />
-            <div className="text-3xl font-bold mb-6">{plan.price}</div>
+            <div className="text-3xl font-bold mb-6 uppercase">{plan.price}</div>
             <ul className="space-y-4 text-sm text-white/90">
               {plan.details.map((d, j) => (
                 <li key={j} className="flex gap-3 items-start">
@@ -187,8 +188,8 @@ export default function PricingSection() {
               }}
               className={`w-3 h-3 rounded-full ${
                 current === idx
-                  ? "bg-breezo-green scale-125"
-                  : "bg-breezo-green/40"
+                  ? "bg-breezo-blue scale-125"
+                  : "bg-breezo-blue/40"
               }`}
             ></button>
           );

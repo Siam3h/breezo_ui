@@ -18,6 +18,7 @@ export default function Index() {
       <PatternDivider />
       <AboutSection />
       <ImpactSection />
+       <div className="w-full border-t border-double border-gray-300" />
       <HowToBreezo />
       <PricingSection />
       <FaqSection />
