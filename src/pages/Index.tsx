@@ -2,7 +2,7 @@ import PatternDivider from "@/components/Patterns";
 import PricingSection from "@/components/PricingSection";
 import HowToBreezo from "@/components/HowToBreezoSection";
 import { lazy } from "react";
-
+import FaqSection from "@/components/FaqSection";
 
 const Header = lazy(() => import("@/components/Header"));
 const Hero = lazy(() => import("@/components/Hero"));
@@ -13,15 +13,15 @@ const Footer = lazy(() => import("@/components/Footer"));
 export default function Index() {
   return (
     <div className="min-h-screen">
-        <Header />
-        <Hero />
-        <PatternDivider />
-        <AboutSection />
-        <ImpactSection />
-        <HowToBreezo />
-        <PricingSection />
-
-        <Footer />
+      <Header />
+      <Hero />
+      <PatternDivider />
+      <AboutSection />
+      <ImpactSection />
+      <HowToBreezo />
+      <PricingSection />
+      <FaqSection />
+      <Footer />
     </div>
   );
 }

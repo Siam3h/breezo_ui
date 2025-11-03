@@ -38,32 +38,70 @@ function AutoplayPlugin({ interval = 3000 } = {}) {
 export default function PricingSection() {
   const plans = [
     {
-      title: "Subscriptions",
-      subtitle: "Unlimited unlocks + optional minutes",
-      price: "From $15 / month",
-      details: ["Unlimited unlocks", "Option to include ride minutes", "Cancel anytime"],
+      title: "Pay Per Ride",
+      subtitle: "Unlock fee: KES 150",
+      price: "KES 10 / minute",
+      details: [
+        "First 10 minutes free",
+        "Best for: Occasional riders, short errands, or first-time users who want flexibility",
+        "Includes: Access to any Breezo e-bike or scooter, simple payment via app or e-wallet",
+      ],
       gradient: "from-blue-500 to-indigo-700",
     },
     {
-      title: "Minute Bundles",
-      subtitle: "Prepaid discounted minutes",
-      price: "Save up to 30%",
-      details: ["Unlimited unlocks included", "Pay once, ride anytime", "Track usage in the app"],
+      title: "Daily Pass",
+      subtitle: "Price: KES 500",
+      price: "Unlimited Rides",
+      details: [
+        "Unlimited 45-minute rides for 24 hours",
+        "Best for: A user who needs mobility for a full day—work, meetings, errands",
+        "Includes: Up to 45 minutes per ride, as many rides as needed within that 24-hour window (After 45 minutes in one ride, standard per-minute pricing may apply)",
+      ],
       gradient: "from-emerald-500 to-green-700",
     },
     {
-      title: "Pay-as-You-Go",
-      subtitle: "Standard ride rates",
-      price: "Unlock + per-minute fare",
-      details: ["No commitments", "Perfect for casual riders", "Pay only when you ride"],
+      title: "Weekly Pass",
+      subtitle: "Price: KES 2,500",
+      price: "Unlimited Rides",
+      details: [
+        "Unlimited 45-minute rides each day for 7 consecutive days",
+        "Best for: Frequent riders (e.g., daily commuters), university students during a busy week, or short-term stay users",
+        "Includes: Up to 45 minutes per ride each day; active for 7 days",
+      ],
       gradient: "from-amber-500 to-orange-700",
     },
     {
-      title: "Unlimited Unlocks",
-      subtitle: "POPULAR CHOICE",
-      price: "Low monthly fee",
-      details: ["Unlimited unlocks", "Pay per trip or use bundles", "Best value for frequent riders"],
+      title: "Monthly Pass",
+      subtitle: "Price: KES 7,500",
+      price: "Unlimited Rides",
+      details: [
+        "Unlimited 45-minute rides each day for 30 days",
+        "Best for: Regular commuters with a predictable daily schedule—business professionals, campus residents, gig economy workers",
+        "Includes: Full month access; 45 minutes per ride free within the pass structure",
+      ],
       gradient: "from-pink-500 to-rose-700",
+    },
+    {
+      title: "Student Pass",
+      subtitle: "Price: KES 3,500 /month",
+      price: "Unlimited Rides",
+      details: [
+        "Same structure as the Monthly Pass (up to 45 minutes per ride each day)",
+        "Best for: University and college students with tighter budgets who need daily mobility",
+        "Includes: Discounted monthly rate, access to student-only promo periods, possibly campus-located docking stations",
+      ],
+      gradient: "from-purple-500 to-violet-700",
+    },
+    {
+      title: "Corporate & Fleet Plans (B2B)",
+      subtitle: "Starting from KES 6,000",
+      price: "Custom Pricing",
+      details: [
+        "Corporate Package: KES 6,000 per employee per month",
+        "Delivery Rider Plan: KES 9,000 per month",
+        "Fleet Leasing: KES 12,000 – KES 15,000 per bike per month",
+      ],
+      gradient: "from-gray-700 to-gray-900",
     },
   ];
 
@@ -95,8 +133,8 @@ export default function PricingSection() {
           payment plans
         </h2>
         <p className="text-gray-600 text-sm sm:text-base">
-          There are many ways to ride and save! Scroll to explore your options or check the app.
-          Never overpay for a ride.
+          There are many ways to ride and save! Scroll to explore your options
+          or check the app. Never overpay for a ride.
         </p>
       </div>
 
@@ -107,15 +145,28 @@ export default function PricingSection() {
             key={i}
             className={`keen-slider__slide font-lexend p-8 shadow-lg text-white bg-gradient-to-br ${plan.gradient}`}
           >
-            <h3 className="text-2xl font-semibold uppercase mb-2">{plan.title}</h3>
+            <h3 className="text-2xl font-semibold uppercase mb-2">
+              {plan.title}
+            </h3>
             <p className="text-sm text-white/90 mb-1">{plan.subtitle}</p>
             <hr className="border-dotted border-white/60 my-3" />
             <div className="text-3xl font-bold mb-6">{plan.price}</div>
-            <ul className="space-y-2 text-sm text-white/90">
+            <ul className="space-y-4 text-sm text-white/90">
               {plan.details.map((d, j) => (
-                <li key={j} className="flex gap-2 items-start">
-                  <span className="w-2 h-2 bg-white rounded-full mt-1"></span>
-                  {d}
+                <li key={j} className="flex gap-3 items-start">
+                  <svg
+                    className="w-5 h-5 text-white flex-shrink-0 mt-0.5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <span>{d}</span>
                 </li>
               ))}
             </ul>
@@ -125,15 +176,23 @@ export default function PricingSection() {
 
       {/* Dots */}
       <div className="flex justify-center mt-6 gap-2">
-        {plans.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => instanceRef.current?.moveToIdx(i)}
-            className={`w-3 h-3 rounded-full ${
-              current === i ? "bg-breezo-green scale-125" : "bg-breezo-green/40"
-            }`}
-          />
-        ))}
+        {[
+          ...Array(instanceRef.current?.track.details.slides.length).keys(),
+        ].map((idx) => {
+          return (
+            <button
+              key={idx}
+              onClick={() => {
+                instanceRef.current?.moveToIdx(idx);
+              }}
+              className={`w-3 h-3 rounded-full ${
+                current === idx
+                  ? "bg-breezo-green scale-125"
+                  : "bg-breezo-green/40"
+              }`}
+            ></button>
+          );
+        })}
       </div>
     </section>
   );
