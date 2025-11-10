@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Base URL of your FastAPI backend
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/";
+const API_BASE_URL = "https://breezoapi-57cdp.sevalla.app" || "http://localhost:8000/";
 
 // Create axios instance
 const apiClient = axios.create({
