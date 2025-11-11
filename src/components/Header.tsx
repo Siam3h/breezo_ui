@@ -87,13 +87,21 @@ const Header = () => {
                 className="absolute right-0 mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg"
               >
                 <Link
+<<<<<<< HEAD
                   to="/auth/login"
+=======
+                  to="auth/Login"
+>>>>>>> e1f5696 (update: vercel.json and hero.)
                   className="font-montserrat font-semibold block px-4 py-2 hover:bg-gray-100"
                 >
                   Login
                 </Link>
                 <Link
+<<<<<<< HEAD
                   to="/auth/register"
+=======
+                  to="auth/Register"
+>>>>>>> e1f5696 (update: vercel.json and hero.)
                   className="font-montserrat font-semibold block px-4 py-2 hover:bg-gray-100"
                 >
                   Signup
@@ -166,14 +174,18 @@ const Header = () => {
           {/* Account links */}
           <div className="flex flex-col gap-2 font-montserrat font-semibold">
             <Link
-              to="/auth/login"
+              to="auth/login"
               className="hover:text-breezo-green transition"
               onClick={() => setIsOpen(false)}
             >
               Login
             </Link>
             <Link
+<<<<<<< HEAD
               to="/auth/register"
+=======
+              to="auth/signup"
+>>>>>>> e1f5696 (update: vercel.json and hero.)
               className="hover:text-breezo-green transition"
               onClick={() => setIsOpen(false)}
             >
