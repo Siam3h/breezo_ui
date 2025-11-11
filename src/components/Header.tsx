@@ -91,13 +91,13 @@ const Header = () => {
                 className="absolute right-0 mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg"
               >
                 <a
-                  href="#login"
+                  href="auth/login"
                   className="font-montserrat font-semibold block px-4 py-2 hover:bg-gray-100"
                 >
                   Login
                 </a>
                 <a
-                  href="#signup"
+                  href="auth/register"
                   className="font-montserrat font-semibold block px-4 py-2 hover:bg-gray-100"
                 >
                   Signup
