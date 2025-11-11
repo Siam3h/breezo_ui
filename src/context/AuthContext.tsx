@@ -22,7 +22,9 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -44,7 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem("tokens");
-    window.location.href = "/auth/login";
+    window.location.href = "/";
   };
 
   // --- Axios interceptor to handle expired access tokens ---
@@ -65,7 +67,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
           try {
             const { refresh_token } = JSON.parse(tokensRaw) as Tokens;
-            const res = await apiClient.post("/auth/token/refresh", { refresh_token });
+            const res = await apiClient.post("/auth/token/refresh", {
+              refresh_token,
+            });
 
             const newTokens = res.data as Tokens;
             localStorage.setItem("tokens", JSON.stringify(newTokens));
@@ -87,7 +91,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, isAuthenticated: !!user }}
+    >
       {children}
     </AuthContext.Provider>
   );
