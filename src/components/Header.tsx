@@ -228,13 +228,13 @@ const Header = () => {
                 className="mt-2 bg-gray-50 rounded-lg shadow-md"
               >
                 <a
-                  href="#login"
+                  href="auth/login"
                   className="block px-4 py-2 hover:bg-gray-100 text-gray-800 font-montserrat font-semibold"
                 >
                   Login
                 </a>
                 <a
-                  href="#signup"
+                  href="auth/register"
                   className="block px-4 py-2 hover:bg-gray-100 text-gray-800  font-montserrat font-semibold"
                 >
                   Signup
