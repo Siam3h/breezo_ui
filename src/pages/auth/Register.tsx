@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { MailIcon, Loader2 } from "lucide-react"; // Added Loader2 for spinner
-import { FaLock } from "react-icons/fa";
+import { MailIcon, Loader2, LockIcon } from "lucide-react"; // Added Loader2 for spinner
 import PatternDivider from "@/components/Patterns";
 import { toast } from "sonner";
 import apiClient from "@/lib/apiClient";
@@ -78,7 +77,7 @@ export default function ResponsiveRegisterPage() {
               Password
             </label>
             <div className="flex items-center border-2 border-gray-800 rounded-none focus-within:border-breezo-orange transition-all bg-gray-50 hover:bg-gray-100">
-              <FaLock className="ml-3 text-gray-600" size={18} />
+              <LockIcon className="ml-3 text-gray-600" size={18} />
               <input
                 type="password"
                 placeholder="••••••••"
