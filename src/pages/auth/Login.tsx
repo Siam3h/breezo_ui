@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { MailIcon } from "lucide-react";
-import { FaLock } from "react-icons/fa";
 import { toast } from "sonner";
 import apiClient from "@/lib/apiClient";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import PatternDivider from "@/components/Patterns";
-import { Loader2 } from "lucide-react";
+import { Loader2,LockIcon, MailIcon } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -76,7 +74,7 @@ export default function Login() {
               Password
             </label>
             <div className="flex items-center border-2 border-gray-800 rounded-none focus-within:border-breezo-orange transition-all bg-gray-50 hover:bg-gray-100">
-              <FaLock className="ml-3 text-gray-600" size={18} />
+              <LockIcon className="ml-3 text-gray-600" size={18} />
               <input
                 type="password"
                 placeholder="••••••••"
