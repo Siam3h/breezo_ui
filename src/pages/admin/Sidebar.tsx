@@ -4,17 +4,17 @@ import {
   Settings,
   Folder,
   LogOut,
-  Menu,
-  X,
+  Menu, // Keep Menu
+  X, // Keep X
   BarChart3,
   Users,
   Car,
   LocateIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import logo_white from "/white_logo.png"; // Breezo white logo
-import { useAuth } from "@/context/AuthContext"; // 1. Import useAuth
-import { useNavigate } from "react-router-dom"; // 2. Import useNavigate
+import logo_white from "/white_logo.png";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 interface SidebarProps {
   onSelect: (section: string) => void;
@@ -25,16 +25,16 @@ const Sidebar = ({ onSelect, role }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
 
-  const { logout } = useAuth(); // 3. Get the logout function from your context
-  const navigate = useNavigate(); // 4. Initialize the navigate function
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
-  // 5. Create a handler function for the logout process
   const handleLogout = () => {
-    logout(); // This function from your context should handle clearing localStorage
-    navigate("/"); // Redirect to the homepage
+    logout();
+    navigate("/");
   };
 
   const allNavItems = [
+    // ... your nav items (omitted for brevity)
     {
       name: "Dashboard",
       icon: Home,
@@ -86,32 +86,47 @@ const Sidebar = ({ onSelect, role }: SidebarProps) => {
 
   return (
     <>
-      {/* Mobile Toggle */}
+      {/* 
+        1. Mobile Toggle Button (Hamburger/Cross)
+        - Class: 'md:hidden' ensures it's only visible on mobile.
+        - Position: 'fixed top-4 right-4' places it on the top right.
+        - Logic: Uses the 'isOpen' state to dynamically switch between <Menu /> and <X />.
+        - Z-index: z-[60] to ensure it's above the sidebar and overlay.
+      */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 bg-breezo-green text-white p-2 rounded-lg shadow-lg"
-        onClick={() => setIsOpen(true)}
+        className="fixed top-4 right-4 z-[60] bg-breezo-green text-white p-2 rounded-lg shadow-lg md:hidden transition-transform duration-300"
+        onClick={() => setIsOpen(!isOpen)} // Toggle open/close
       >
-        <Menu />
+        {/* Dynamic Icon Logic */}
+        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
 
-      {/* Sidebar */}
+      {/* 
+        2. Sidebar
+        - Visibility: Uses 'transform' classes controlled by 'isOpen'.
+        - Desktop: 'md:translate-x-0' keeps it visible on desktop (≥ 768px).
+        - Mobile: 'translate-x-0' when open, '-translate-x-full' when closed.
+        - Z-index: z-50 to be above the main content and overlay.
+      */}
       <aside
-        className={`fixed inset-y-0 left-0 w-64 bg-[#101010] text-white transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 transition-transform duration-300 ease-in-out z-40 shadow-lg`}
+        className={`fixed inset-y-0 left-0 w-64 bg-[#101010] text-white transform 
+          ${isOpen ? "translate-x-0" : "-translate-x-full"} 
+          md:translate-x-0 transition-transform duration-300 ease-in-out z-50 shadow-lg`}
       >
         {/* Logo Section */}
         <div className="flex items-center justify-between p-5 border-b border-gray-800 bg-[#141414]">
           <img src={logo_white} alt="Breezo Logo" className="h-8" />
-          <button
+
+          {/* Internal close button can be removed, but is kept for extra UX */}
+          {/* <button
             className="md:hidden text-gray-400 hover:text-white transition"
             onClick={() => setIsOpen(false)}
           >
             <X />
-          </button>
+          </button> */}
         </div>
 
-        {/* Nav Section */}
+        {/* Nav Section (content remains the same) */}
         <nav className="flex-1 p-4 space-y-2 font-montserrat">
           {visibleNavItems.map((item) => {
             const Icon = item.icon;
@@ -125,7 +140,7 @@ const Sidebar = ({ onSelect, role }: SidebarProps) => {
                 onClick={() => {
                   setActiveSection(item.section);
                   onSelect(item.section);
-                  setIsOpen(false);
+                  setIsOpen(false); // Close sidebar after selecting a link on mobile
                 }}
                 className={`flex items-center gap-3 p-3 w-full text-left rounded-xl transition-all duration-300 ${
                   isActive
@@ -147,7 +162,7 @@ const Sidebar = ({ onSelect, role }: SidebarProps) => {
         {/* Logout */}
         <div className="p-4 border-t border-gray-800">
           <motion.button
-            onClick={handleLogout} // 6. Attach the handler to the onClick event
+            onClick={handleLogout}
             whileHover={{ scale: 1.03 }}
             className="w-full bg-breezo-orange py-2 rounded-xl font-semibold text-[#101010] hover:bg-breezo-orange/90 flex items-center justify-center gap-2 transition"
           >
@@ -156,10 +171,15 @@ const Sidebar = ({ onSelect, role }: SidebarProps) => {
         </div>
       </aside>
 
-      {/* Overlay for mobile */}
+      {/* 
+        3. Overlay for mobile
+        - Class: 'md:hidden' ensures it's only active on mobile.
+        - Condition: Only rendered when 'isOpen' is true.
+        - Z-index: z-40 to be below the sidebar and toggle button.
+      */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-50 z-30 md:hidden"
+          className="fixed inset-0 bg-black opacity-50 z-40 md:hidden"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
