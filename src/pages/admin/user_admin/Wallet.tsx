@@ -1,3 +1,4 @@
+// Wallet.tsx (Reused from your provided code, assumes necessary imports)
 import { useEffect, useState } from "react";
 import { WalletIcon, ArrowDownCircle } from "lucide-react";
 import apiClient from "@/lib/apiClient";
@@ -37,33 +38,36 @@ const Wallet = () => {
     fetchWallet();
   }, []);
 
-const handleTopUp = async () => {
-  const amount = parseFloat(prompt("Enter top-up amount (Ksh):") || "0");
-  if (!amount || amount <= 0) return alert("Invalid amount");
+  const handleTopUp = async () => {
+    const amount = parseFloat(prompt("Enter top-up amount (Ksh):") || "0");
+    if (!amount || amount <= 0) return alert("Invalid amount");
 
-  try {
-    const email = user.email;
-    const res = await apiClient.post("/wallets/fund/initiate", { amount, email });
+    try {
+      const email = user.email;
+      const res = await apiClient.post("/wallets/fund/initiate", {
+        amount,
+        email,
+      });
 
+      const checkoutUrl = res.data.checkout_url;
 
-    const checkoutUrl = res.data.checkout_url;
-
-    if (checkoutUrl) {
-
-      window.location.href = checkoutUrl;
-    } else {
-      alert("Failed to get checkout URL. Please try again.");
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      } else {
+        alert("Failed to get checkout URL. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error initiating top-up:", error);
+      alert("Failed to initiate wallet top-up.");
     }
-  } catch (error) {
-    console.error("Error initiating top-up:", error);
-    alert("Failed to initiate wallet top-up.");
-  }
-};
+  };
 
   if (loading) return <div className="p-6">Loading wallet...</div>;
 
   return (
-    <div className="p-6 min-h-screen">
+    <div className="p-6 h-full">
+      {" "}
+      {/* Changed min-h-screen to h-full for better containment */}
       <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -134,4 +138,3 @@ const handleTopUp = async () => {
 };
 
 export default Wallet;
-
