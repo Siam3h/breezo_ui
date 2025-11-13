@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "sonner"; // ✅ Add this import
 import LoadingScreen from "@/components/LoadingScreen";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// ✅ Create a QueryClient instance
+const queryClient = new QueryClient();
 
 // Lazy load route components
 const Index = lazy(() => import("@/pages/Index"));
@@ -33,65 +37,67 @@ const PaymentVerify = lazy(
 
 const App = () => (
   <StrictMode>
-    <AuthProvider>
-      <Router>
-        <Suspense fallback={<LoadingScreen />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route element={<AuthLayout />}>
-              <Route path="/auth/register" element={<Register />} />
-              <Route path="/auth/verify-email" element={<VerifyEmail />} />
-              <Route path="/auth/login" element={<Login />} />
-              <Route
-                path="/auth/password-reset"
-                element={<RequestPasswordReset />}
-              />
-              <Route
-                path="/auth/password-reset/confirm"
-                element={<ConfirmPasswordReset />}
-              />
-              <Route path="/auth/accept-invite" element={<AcceptInvite />} />
-              <Route
-                path="/auth/password/change"
-                element={<ChangePassword />}
-              />
-              <Route
-                path="/auth/email/update"
-                element={<RequestEmailUpdate />}
-              />
-              <Route
-                path="/auth/email/update/confirm"
-                element={<ConfirmEmailUpdate />}
-              />
-              <Route path="/auth/minors" element={<CreateMinor />} />
-              <Route path="/wallet/verify" element={<PaymentVerify />} />
-            </Route>
-            <Route path="/dashboard" element={<AdminDashboard />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-        <Toaster
-          position="top-center"
-          expand={false}
-          closeButton
-          duration={4000} // how long the toast stays (ms)
-          visibleToasts={3} // optional: limits concurrent toasts
-          toastOptions={{
-            style: {
-              background: "#ffffff",
-              border: "2px solid #ff8b13",
-              color: "#222",
-              fontFamily: "Lexend, sans-serif",
-              boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
-            },
-            className: "font-lexend text-sm",
-          }}
-          // ✅ Adds a progress bar that fills out as the toast is about to close
-          richColors
-          invert={false}
-        />
-      </Router>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Router>
+          <Suspense fallback={<LoadingScreen />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route element={<AuthLayout />}>
+                <Route path="/auth/register" element={<Register />} />
+                <Route path="/auth/verify-email" element={<VerifyEmail />} />
+                <Route path="/auth/login" element={<Login />} />
+                <Route
+                  path="/auth/password-reset"
+                  element={<RequestPasswordReset />}
+                />
+                <Route
+                  path="/auth/password-reset/confirm"
+                  element={<ConfirmPasswordReset />}
+                />
+                <Route path="/auth/accept-invite" element={<AcceptInvite />} />
+                <Route
+                  path="/auth/password/change"
+                  element={<ChangePassword />}
+                />
+                <Route
+                  path="/auth/email/update"
+                  element={<RequestEmailUpdate />}
+                />
+                <Route
+                  path="/auth/email/update/confirm"
+                  element={<ConfirmEmailUpdate />}
+                />
+                <Route path="/auth/minors" element={<CreateMinor />} />
+                <Route path="/wallet/verify" element={<PaymentVerify />} />
+              </Route>
+              <Route path="/dashboard" element={<AdminDashboard />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+          <Toaster
+            position="top-center"
+            expand={false}
+            closeButton
+            duration={4000} // how long the toast stays (ms)
+            visibleToasts={3} // optional: limits concurrent toasts
+            toastOptions={{
+              style: {
+                background: "#ffffff",
+                border: "2px solid #ff8b13",
+                color: "#222",
+                fontFamily: "Lexend, sans-serif",
+                boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+              },
+              className: "font-lexend text-sm",
+            }}
+            // ✅ Adds a progress bar that fills out as the toast is about to close
+            richColors
+            invert={false}
+          />
+        </Router>
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>
 );
 
