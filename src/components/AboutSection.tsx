@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const AboutSection = () => {
   return (
-    <section className="bg-[#FFFEFE] border-t-2 border-breezo-orange py-8 px-6 sm:px-8 lg:px-20 text-center">
+    <section className="bg-[#FFFEFE]  py-8 px-6 sm:px-8 lg:px-20 text-center">
       {/* Tagline */}
       <p className="text-breezo-blue uppercase tracking-[0.25em] text-sm sm:text-base font-semibold mb-4">
         Solving your last mile connectivity gap

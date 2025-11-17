@@ -1,4 +1,5 @@
-import PatternDivider from "@/components/Patterns";
+import Pattern from "@/components/Patterns";
+import Pattern2 from "@/components/PatternDivider";
 import PricingSection from "@/components/PricingSection";
 import HowToBreezo from "@/components/HowToBreezoSection";
 import { lazy } from "react";
@@ -15,11 +16,12 @@ export default function Index() {
     <div className="min-h-screen">
       <Header />
       <Hero />
-      <PatternDivider />
+      <Pattern />
       <AboutSection />
       <ImpactSection />
        <div className="w-full border-t border-double border-gray-300" />
       <HowToBreezo />
+      <Pattern2 />
       <PricingSection />
       <FaqSection />
       <Footer />
