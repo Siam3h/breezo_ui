@@ -1,88 +1,169 @@
-import Sidebar from "@/pages/admin/Sidebar";
-import Wallet from "./user_admin/Wallet";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import AllRides from "../bikes/AdminAllRides";
+import TopNavbar from "@/components/dashboard/TopNavbar";
+import RideForm from "@/components/dashboard/RideForm";
+import DynamicUserMap from "@/components/dashboard/DynamicUserMap";
+import Wallet from "./user_admin/Wallet";
+import BusinessPortal from "@/components/dashboard/BusinessPortal";
 import BikesList from "../bikes/BikesList";
-import UserRides from "../bikes/UserRides";
-import CreateMinor from "../auth/CreateMinor";
-import InviteStaff from "./InviteStaff";
-import { useState } from "react";
+import MobileMenuDrawer from "@/components/dashboard/MobileMenuDrawer";
 
-const AdminDashboard = () => {
-  const { user, isAuthenticated } = useAuth();
-  const [activeSection, setActiveSection] = useState("dashboard");
+const isAdminOrStaff = (role: string) =>
+  role === "super_admin" || role === "staff";
+
+const UserDashboard = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const initialSection =
+    user && isAdminOrStaff(user.role) ? "fleet_management" : "ride";
+  const [activeSection, setActiveSection] = useState(initialSection);
+
+  useEffect(() => {
+    if (user && activeSection === "ride" && isAdminOrStaff(user.role)) {
+      setActiveSection("fleet_management");
+    }
+  }, [user, activeSection]);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  const handleSelectSection = (section: string) => {
+    setActiveSection(section);
+    setIsMobileMenuOpen(false);   };
 
   if (!user) {
     return <div>Loading dashboard...</div>;
   }
 
   const userRole = user.role;
+    const userName = user.email
+    ? user.email
+        .split("@")[0]
+        .split(".")
+        .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+        .join(" ")
+    : "User Name";
+  const cashBalance = 0.0;
+  console.log(user);
 
   const renderContent = () => {
+        if (isAdminOrStaff(userRole)) {
+      switch (activeSection) {
+        case "fleet_management":
+          return (
+            <div className="pt-4 pb-12 w-full">
+              <BikesList />
+            </div>
+          );
+        case "admin_dashboard":
+        case "manage_account": // Admins need to manage account too
+          return (
+            <div className="p-8 text-center text-gray-500 border border-dashed border-gray-300 rounded-lg w-full h-full flex items-center justify-center">
+              {`Admin Section: ${
+                activeSection.charAt(0).toUpperCase() +
+                activeSection.slice(1).replace("_", " ")
+              }`}
+            </div>
+          );
+        default:
+          return (
+            <div className="p-8 text-center text-gray-500 border border-dashed border-gray-300 rounded-lg w-full h-full flex items-center justify-center">
+              {`Admin Section: ${
+                activeSection.charAt(0).toUpperCase() +
+                activeSection.slice(1).replace("_", " ")
+              }`}
+            </div>
+          );
+      }
+    }
+    // --- PERSONAL/BUSINESS RENDERING ---
     switch (activeSection) {
-      case "rides":
-        return <RidesSection />;
-      case "total_rides":
-        return <TotalRidesSection />;
-      case "users":
-        return <UsersSection userRole={userRole} />;
+      case "ride":
+        return (
+          <div className="flex flex-col md:flex-row h-full">
+            <RideForm />
+            <DynamicUserMap />
+          </div>
+        );
+
+      case "wallet":
+      case "activity": // Handled by drawer
+      case "help": // Handled by drawer
+        return <Wallet />; // Wallet tab is primary for financial info
+
+      case "business_portal":
+        return <BusinessPortal userRole={userRole} />;
+
+      // New/Renamed Personal Tabs Rendering
+      case "student":
+      case "promos":
+      case "manage_account": // RENAMED FROM "settings"
+      case "home": // For mobile drawer compatibility
+        return (
+          <div className="p-8 bg-white shadow rounded-lg h-full flex items-center justify-center">
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-800">
+                {activeSection.charAt(0).toUpperCase() +
+                  activeSection.slice(1).replace("_", " ")}{" "}
+                Page
+              </h2>
+              <p className="text-gray-600">
+                This content is for the {activeSection.replace("_", " ")}{" "}
+                section.
+              </p>
+            </div>
+          </div>
+        );
+
       default:
-        return <DashboardSection userRole={userRole} />;
+        // Fallback
+        return (
+          <div className="p-8 text-center text-gray-500 border border-dashed border-gray-300 rounded-lg h-full flex items-center justify-center">
+            {`Welcome to the ${
+              activeSection.charAt(0).toUpperCase() + activeSection.slice(1)
+            } Section.`}
+          </div>
+        );
     }
   };
 
   return (
-<div className="flex min-h-screen bg-gray-50">
-      {/* Top Bar with user info */}
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-50 flex justify-between items-center p-4 md:ml-64">
-        <div>
-          <h1 className="text-lg font-semibold text-gray-800">Dashboard</h1>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="text-right">
-            <p className="text-sm font-medium text-gray-700">{user.email}</p>
-            <p className="text-xs text-gray-500 capitalize">{user.role.replace("_", " ")}</p>
-            <p className="text-xs text-gray-500 capitalize">ID: {user.id}</p>
-          </div>
-          <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center font-semibold text-indigo-700">
-            {user.email?.charAt(0).toUpperCase()}
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Top Navigation Bar */}
+      <TopNavbar
+        activeSection={activeSection}
+        onSelect={handleSelectSection}
+        userEmail={user.email || "user@example.com"}
+        userName={userName}
+        onLogout={handleLogout}
+        userRole={userRole}
+        isMobileMenuOpen={isMobileMenuOpen} // ✅ NEW
+        onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      />
 
-      {/* Sidebar */}
-      <Sidebar onSelect={setActiveSection} role={userRole} />
+      {/* Mobile Menu Drawer */}
+      <MobileMenuDrawer
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        userName={userName}
+        userEmail={user.email || "user@example.com"}
+        onLogout={handleLogout}
+        onSelectSection={handleSelectSection}
+        cashBalance={cashBalance}
+      />
 
-      {/* Main content */}
-      <main className="flex-1 md:ml-64 p-6 mt-16">{renderContent()}</main>
-    </div>  );
+      {/* Main Content Area: Padding is adjusted to avoid being hidden by TopNavbar */}
+      {/* h-full allows content scrolling inside the main element */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20 md:pt-24 min-h-screen">
+        {renderContent()}
+      </main>
+    </div>
+  );
 };
 
-export default AdminDashboard;
-
-const DashboardSection = ({ userRole }) => (
-  <div className="space-y-6">
-  {(userRole == "personal" || userRole == "business_admin") &&   <Wallet />}
-    {(userRole === "super_admin" || userRole === "staff") && <BikesList />}
-  </div>
-);
-
-const RidesSection = () => (
-  <div>
-    <UserRides />
-  </div>
-);
-
-const TotalRidesSection = () => (
-  <div>
-    <AllRides />
-  </div>
-);
-
-const UsersSection = ({userRole}) => (
-  <div>
-    {(userRole == "personal") && <CreateMinor />}
-    {(userRole == "super_admin") && <InviteStaff />}
-  </div>
-);
-
+export default UserDashboard;
