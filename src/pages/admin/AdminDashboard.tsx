@@ -1,4 +1,3 @@
-// UserDashboard.tsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
@@ -8,24 +7,20 @@ import DynamicUserMap from "@/components/dashboard/DynamicUserMap";
 import Wallet from "./user_admin/Wallet";
 import BusinessPortal from "@/components/dashboard/BusinessPortal";
 import BikesList from "../bikes/BikesList";
-import MobileMenuDrawer from "@/components/dashboard/MobileMenuDrawer"; // NEW IMPORT
+import MobileMenuDrawer from "@/components/dashboard/MobileMenuDrawer";
 
-// Helper function for admin roles
 const isAdminOrStaff = (role: string) =>
   role === "super_admin" || role === "staff";
 
 const UserDashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  // NEW STATE: for mobile menu drawer
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Determine the initial active section based on the user's role
   const initialSection =
     user && isAdminOrStaff(user.role) ? "fleet_management" : "ride";
   const [activeSection, setActiveSection] = useState(initialSection);
 
-  // Set the correct initial section once the user object is fully loaded
   useEffect(() => {
     if (user && activeSection === "ride" && isAdminOrStaff(user.role)) {
       setActiveSection("fleet_management");
@@ -37,30 +32,27 @@ const UserDashboard = () => {
     navigate("/");
   };
 
-  // NEW: Helper to select section and close menu if open
   const handleSelectSection = (section: string) => {
     setActiveSection(section);
-    setIsMobileMenuOpen(false); // Close menu after selection
-  };
+    setIsMobileMenuOpen(false);   };
 
   if (!user) {
     return <div>Loading dashboard...</div>;
   }
 
   const userRole = user.role;
-  // MOCK DATA for mobile drawer
-  const userName = user.email
+    const userName = user.email
     ? user.email
         .split("@")[0]
         .split(".")
         .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
         .join(" ")
     : "User Name";
-  const cashBalance = 0.0; // This should come from a wallet hook/state
+  const cashBalance = 0.0;
+  console.log(user);
 
   const renderContent = () => {
-    // ... (Admin/Staff Rendering - remains the same)
-    if (isAdminOrStaff(userRole)) {
+        if (isAdminOrStaff(userRole)) {
       switch (activeSection) {
         case "fleet_management":
           return (

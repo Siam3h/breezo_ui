@@ -31,49 +31,19 @@ const RideForm = () => {
           {/* Hidden icon on mobile */}
           <input
             type="text"
-            placeholder="Pick-up location"
+            placeholder="My Location"
             className="flex-grow bg-transparent focus:outline-none text-gray-800 placeholder-gray-800 font-medium"
             readOnly
           />
         </div>
         {/* Dropoff location */}
-        <div className="flex items-center bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition duration-150">
-          <Square className="w-5 h-5 text-gray-500 mr-3 hidden" />{" "}
-          {/* Hidden icon on mobile */}
-          <input
-            type="text"
-            placeholder="Drop-off location"
-            className="flex-grow bg-transparent focus:outline-none text-gray-800 placeholder-gray-800 font-medium"
-            readOnly
-          />
-        </div>
-      </div>
-
-      {/* Pickup now & For me (Side-by-side on mobile) */}
-      <div className="flex space-x-2 px-4 md:px-0 pb-4 md:pb-0">
-        <div className="flex items-center justify-between w-1/2 bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition duration-150">
-          <div className="flex items-center">
-            <Clock className="w-5 h-5 text-gray-500 mr-2" />
-            <span className="text-gray-800 text-sm">Pick up now</span>
-          </div>
-          <ChevronDown className="w-4 h-4 text-gray-500" />
-        </div>
-
-        <div className="flex items-center justify-between w-1/2 bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition duration-150">
-          <div className="flex items-center">
-            <User className="w-5 h-5 text-gray-500 mr-2" />
-            <span className="text-gray-800 text-sm">For me</span>
-          </div>
-          <ChevronDown className="w-4 h-4 text-gray-500" />
-        </div>
-      </div>
-
+        </div>   
       {/* Search Button (Hidden on mobile home page) */}
       <button
         disabled
         className="hidden md:block mt-6 w-full py-3 bg-gray-200 text-gray-500 font-semibold rounded-lg cursor-not-allowed"
       >
-        Search
+        Nearest Bike Station
       </button>
     </div>
   );
