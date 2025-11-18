@@ -127,13 +127,13 @@ export default function PricingSection() {
     <section className="bg-white text-gray-900 px-6 py-10 font-lexend">
       {/* Header */}
       <div className="text-center mb-12 max-w-2xl mx-auto">
-        <p className="text-breezo-orange uppercase tracking-[0.25em] text-sm sm:text-base font-semibold mb-4">
+        <p className="text-breezo-orange uppercase tracking-[0.25em] text-sm sm:text-base font-lexend font-semibold mb-4">
           moving smarter while spending less
         </p>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-lexend text-black leading-tight mb-6 uppercase">
           payment plans
         </h2>
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-600 text-sm font-lexend sm:text-base">
           There are many ways to ride and save! Scroll to explore your options
           or check the app. Never overpay for a ride.
         </p>
@@ -146,13 +146,13 @@ export default function PricingSection() {
             key={i}
             className={`keen-slider__slide font-lexend p-8 shadow-lg text-white bg-gradient-to-br ${plan.gradient}`}
           >
-            <h3 className="text-2xl font-semibold uppercase mb-2">
+            <h3 className="text-2xl font-lexend font-semibold uppercase mb-2">
               {plan.title}
             </h3>
-            <p className="text-sm text-white/90 mb-1 uppercase">{plan.subtitle}</p>
+            <p className="text-sm text-white/90 mb-1 uppercase font-lexend">{plan.subtitle}</p>
             <hr className="border-dotted border-white/60 my-3" />
-            <div className="text-3xl font-bold mb-6 uppercase">{plan.price}</div>
-            <ul className="space-y-4 text-sm text-white/90">
+            <div className="text-3xl font-bold mb-6 uppercase font-lexend">{plan.price}</div>
+            <ul className="space-y-4 text-sm text-white/90 font-lexend">
               {plan.details.map((d, j) => (
                 <li key={j} className="flex gap-3 items-start">
                   <svg
