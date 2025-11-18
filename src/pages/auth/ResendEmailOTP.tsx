@@ -5,7 +5,7 @@ import apiClient from "@/lib/apiClient";
 import { useNavigate, Link } from "react-router-dom";
 import PatternDivider from "@/components/Patterns";
 
-export default function VerifyEmail() {
+export default function ResendEmailOTP() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,9 +15,9 @@ export default function VerifyEmail() {
     e.preventDefault();
     setLoading(true);
     try {
-      await apiClient.post("/auth/verify-email", { email, otp });
-      toast.success("Email verified successfully! You can now login.");
-      navigate("/auth/login");
+      await apiClient.post("/auth/resend-otp", email);
+      toast.success("OTP sent successfully. You can now verify your email");
+      navigate("/auth/verify-email");
     } catch (err: any) {
       toast.error(
         err.response?.data?.detail || "Verification failed. Try again."
@@ -42,7 +42,7 @@ export default function VerifyEmail() {
           className="flex flex-col items-center justify-center w-full max-w-sm bg-white p-6 lg:p-10 rounded-none shadow-lg lg:shadow-xl border border-gray-100"
         >
           <h2 className="text-4xl font-extrabold text-gray-800 mb-10 uppercase tracking-wide font-lexend text-center">
-            Verify Email
+            Resend OTP 
           </h2>
 
           {/* Email Input */}
@@ -62,25 +62,7 @@ export default function VerifyEmail() {
               />
             </div>
           </div>
-
-          {/* OTP Input */}
-          <div className="w-full mb-6">
-            <label className="text-gray-700 text-sm font-bold mb-1 block font-lexend">
-              OTP Code
-            </label>
-            <div className="flex items-center border-2 border-gray-800 rounded-none focus-within:border-breezo-orange transition-all bg-gray-50 hover:bg-gray-100">
-              <KeyRound className="ml-3 text-gray-600" size={20} />
-              <input
-                type="text"
-                placeholder="Enter your code"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                className="font-lexend w-full px-3 py-3 outline-none font-semibold text-gray-900 placeholder-gray-500 bg-transparent"
-                required
-              />
-            </div>
-          </div>
-
+ 
           {/* Verify Button */}
           <button
             type="submit"
@@ -97,20 +79,20 @@ export default function VerifyEmail() {
             {loading ? (
               <>
                 <Loader2 className="animate-spin" size={20} />
-                Verifying
+                Resending...
               </>
             ) : (
-              "Verify"
+              "Resend"
             )}
           </button>
 
           <p className="mt-6 text-sm text-gray-600 font-lexend text-center">
-            Didn’t get the OTP?{" "}
+            Received the OTP?{" "}
             <Link
               to="/auth/resend"
               className="text-breezo-green font-semibold hover:underline"
             >
-              Resend
+          Verify your email             
             </Link>
           </p>
         </form>
@@ -148,10 +130,7 @@ export default function VerifyEmail() {
             <h3 className="font-extrabold text-2xl mb-2 text-white lg:text-4xl lg:mb-4 font-lexend uppercase drop-shadow-md">
               Almost There!
             </h3>
-            <p className="text-sm text-blue-50 mb-4 lg:mb-8 font-lexend">
-              Enter your email and OTP to complete verification.
-            </p>
-            <Link to="/auth/login">
+                     <Link to="/auth/login">
               <button
                 className="bg-transparent border-2 border-white w-36 h-11 font-semibold text-sm rounded-none text-white 
                               hover:bg-white hover:text-breezo-green transition-colors lg:text-base font-lexend"
@@ -175,3 +154,4 @@ export default function VerifyEmail() {
     </div>
   );
 }
+

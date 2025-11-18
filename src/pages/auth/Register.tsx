@@ -22,7 +22,7 @@ export default function ResponsiveRegisterPage() {
         role,
       });
       toast.success(
-        "🎉 Account created successfully! Check your email for the OTP."
+        "Account created successfully! Check your email for the OTP."
       );
       navigate("/auth/verify-email");
     } catch (err: any) {

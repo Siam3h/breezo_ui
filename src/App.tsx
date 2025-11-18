@@ -1,11 +1,10 @@
 import { StrictMode, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
-import { Toaster } from "sonner"; // ✅ Add this import
+import { Toaster } from "sonner"; 
 import LoadingScreen from "@/components/LoadingScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// ✅ Create a QueryClient instance
 const queryClient = new QueryClient();
 
 // Lazy load route components
@@ -34,6 +33,9 @@ const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
 const PaymentVerify = lazy(
   () => import("@/pages/admin/user_admin/PaymentVerify")
 );
+const ResendEmailOTP = lazy(
+  () => import("@/pages/auth/ResendEmailOTP")
+);
 
 const App = () => (
   <StrictMode>
@@ -46,6 +48,7 @@ const App = () => (
               <Route element={<AuthLayout />}>
                 <Route path="/auth/register" element={<Register />} />
                 <Route path="/auth/verify-email" element={<VerifyEmail />} />
+                <Route path="/auth/resend" element={<ResendEmailOTP />} />
                 <Route path="/auth/login" element={<Login />} />
                 <Route
                   path="/auth/password-reset"
@@ -75,26 +78,28 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-          <Toaster
-            position="top-center"
-            expand={false}
-            closeButton
-            duration={4000} // how long the toast stays (ms)
-            visibleToasts={3} // optional: limits concurrent toasts
-            toastOptions={{
-              style: {
-                background: "#ffffff",
-                border: "2px solid #ff8b13",
-                color: "#222",
-                fontFamily: "Lexend, sans-serif",
-                boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
-              },
-              className: "font-lexend text-sm",
-            }}
-            // ✅ Adds a progress bar that fills out as the toast is about to close
-            richColors
-            invert={false}
-          />
+          
+<Toaster
+  position="top-center"
+  expand={false}
+  closeButton
+  duration={4000}
+  visibleToasts={3}
+  toastOptions={{
+    style: {
+      background: "#ffffff",
+      borderRadius: "0px",     // <-- No rounded corners
+      border: "none",          // <-- No border line
+      color: "#222",
+      fontFamily: "Lexend, sans-serif",
+      boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+      "--sonner-progress-bar-color": "black", // <-- Black loading bar
+    },
+    className: "font-lexend text-sm",
+  }}
+  richColors
+  invert={false}
+/>
         </Router>
       </AuthProvider>
     </QueryClientProvider>

@@ -20,7 +20,6 @@ const Header = () => {
     img1.src = logo_white;
     img2.src = logo_blue;
 
-    // Scroll handler
     const handleScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.4);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -52,7 +51,7 @@ const Header = () => {
             className={`flex items-center gap-2 cursor-pointer hover:text-breezo-green transition ${textColor}`}
           >
             <AnimatedIcon animationData={bikeAnimation} size={40} />
-            <Link to="/vehicles" className="font-montserrat font-semibold">
+            <Link to="/vehicles" className="font-lexend font-semibold">
               Vehicles
             </Link>
           </motion.div>
@@ -65,7 +64,7 @@ const Header = () => {
               className={`flex items-center gap-2 font-medium ${textColor}`}
             >
               <AnimatedIcon animationData={accountAnimation} size={35} />
-              <span className="font-montserrat font-semibold">Account</span>
+              <span className="font-lexend font-semibold">Account</span>
               <motion.svg
                 animate={{ rotate: showAccountMenu ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
@@ -88,13 +87,13 @@ const Header = () => {
               >
                 <Link
                   to="/auth/login"
-                  className="font-montserrat font-semibold block px-4 py-2 hover:bg-gray-100"
+                  className="font-lexend font-semibold block px-4 py-2 hover:bg-gray-100"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth/register"
-                  className="font-montserrat font-semibold block px-4 py-2 hover:bg-gray-100"
+                  className="font-lexend font-semibold block px-4 py-2 hover:bg-gray-100"
                 >
                   Signup
                 </Link>
@@ -105,7 +104,8 @@ const Header = () => {
           {/* Download App */}
           <Link
             to="/download"
-            className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-none transition font-montserrat"
+            className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dar
+            k text-[#404040] px-5 py-2 rounded-none transition font-lexend"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +156,7 @@ const Header = () => {
         <div className="flex flex-col space-y-6 mt-4 text-gray-900">
           <Link
             to="/vehicles"
-            className="flex items-center gap-3 font-montserrat font-semibold hover:text-breezo-green transition"
+            className="flex items-center gap-3 font-lexend font-semibold hover:text-breezo-green transition"
             onClick={() => setIsOpen(false)}
           >
             <AnimatedIcon animationData={bikeAnimation} size={40} />
@@ -164,7 +164,7 @@ const Header = () => {
           </Link>
 
           {/* Account links */}
-          <div className="flex flex-col gap-2 font-montserrat font-semibold">
+          <div className="flex flex-col gap-2 font-lexend font-semibold">
             <Link
               to="/auth/login"
               className="hover:text-breezo-green transition"
@@ -184,7 +184,7 @@ const Header = () => {
           {/* Download */}
           <Link
             to="/download"
-            className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-full transition font-montserrat font-semibold"
+            className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-full transition font-lexend font-semibold"
             onClick={() => setIsOpen(false)}
           >
             <svg

@@ -49,7 +49,6 @@ const UserDashboard = () => {
         .join(" ")
     : "User Name";
   const cashBalance = 0.0;
-  console.log(user);
 
   const renderContent = () => {
         if (isAdminOrStaff(userRole)) {

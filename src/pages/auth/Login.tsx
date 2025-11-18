@@ -20,11 +20,10 @@ export default function Login() {
       const res = await apiClient.post("/auth/login", { email, password });
       const { access_token, refresh_token, user } = res.data;
 
-      // Use context login
       login(user, { access: access_token, refresh: refresh_token });
 
       toast.success("Login successful!");
-      navigate("/dashboard"); // redirect to dashboard (or home)
+      navigate("/dashboard"); 
     } catch (err: any) {
       toast.error(err.response?.data?.detail || "Login failed");
     } finally {
@@ -102,7 +101,7 @@ export default function Login() {
             {loading ? (
               <>
                 <Loader2 className="animate-spin" size={20} />
-                Verifying
+                Login
               </>
             ) : (
               "Login"

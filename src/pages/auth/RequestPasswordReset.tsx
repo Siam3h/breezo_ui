@@ -18,8 +18,7 @@ export default function RequestPasswordReset() {
     }
     setLoading(true);
     try {
-      // The API client expects an object for the payload
-      await apiClient.post("/auth/password-reset/request", { email });
+      await apiClient.post("/auth/password-reset/request", email);
       toast.success("Password reset OTP sent to your email");
       navigate("/auth/password-reset/confirm");
     } catch (err: any) {
