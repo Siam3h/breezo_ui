@@ -52,7 +52,7 @@ const Header = () => {
           >
             <AnimatedIcon animationData={bikeAnimation} size={40} />
             <Link to="/vehicles" className="font-lexend font-semibold">
-              Vehicles
+              Our E-BIkes & Scooters
             </Link>
           </motion.div>
 
@@ -160,7 +160,7 @@ const Header = () => {
             onClick={() => setIsOpen(false)}
           >
             <AnimatedIcon animationData={bikeAnimation} size={40} />
-            Vehicles
+            Our E-BIkes & Scooters
           </Link>
 
           {/* Account links */}
@@ -184,7 +184,7 @@ const Header = () => {
           {/* Download */}
           <Link
             to="/download"
-            className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-full transition font-lexend font-semibold"
+            className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-none transition font-lexend font-semibold"
             onClick={() => setIsOpen(false)}
           >
             <svg
