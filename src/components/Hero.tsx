@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
-import desktopHero from "/ebike_hero41.webp";
-import mobileHero from "/ebike_hero_mobile.webp";
+//import desktopHero from "/ebike_hero41.webp";
+import desktopHero from "/ebike_hero2.jpg"
+//import mobileHero from "/ebike_hero_mobile.webp";
+import mobileHero from "/ebike_hero2.jpg";
 import LoadingScreen from "./LoadingScreen";
 import { useState, useEffect } from "react";
 import AlternatingTagline from "./AlternatingTagline";
@@ -81,7 +83,7 @@ const Hero = () => {
             <h1 className="font-monoton text-5xl sm:text-6xl lg:text-6xl font-extrabold tracking-tight">
               BREEZO
             </h1>
-            <h2 className="font-monoton text-4xl sm:text-4xl lg:text-4xl text-breezo-orange mt-2">
+            <h2 className="font-monoton text-4xl sm:text-4xl lg:text-4xl text-breezo-blue mt-2">
               Electric
             </h2>
           </div>
