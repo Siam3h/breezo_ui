@@ -53,40 +53,40 @@ export default function PricingSection() {
       subtitle: "Price: KES 500",
       price: "Unlimited Rides",
       details: [
-        "Unlimited 45-minute rides for 24 hours",
+        "Unlimited rides for 12 hours",
         "Best for: A user who needs mobility for a full day—work, meetings, errands",
-        "Includes: Up to 45 minutes per ride, as many rides as needed within that 24-hour window (After 45 minutes in one ride, standard per-minute pricing may apply)",
+        "Includes: As many rides as needed within that 12-hour window.",
       ],
       gradient: "from-blue-500 to-indigo-700",
     },
     {
       title: "Weekly Pass",
-      subtitle: "Price: KES 2,500",
+      subtitle: "Price: KES 2,350",
       price: "Unlimited Rides",
       details: [
-        "Unlimited 45-minute rides each day for 7 consecutive days",
+        "Unlimited rides each day for 5 consecutive working days",
         "Best for: Frequent riders (e.g., daily commuters), university students during a busy week, or short-term stay users",
-        "Includes: Up to 45 minutes per ride each day; active for 7 days",
+        "Includes: Active for 5 working days",
       ],
       gradient:  "from-blue-500 to-indigo-700",
     },
     {
       title: "Monthly Pass",
-      subtitle: "Price: KES 7,500",
+      subtitle: "Price: KES 8,500",
       price: "Unlimited Rides",
       details: [
-        "Unlimited 45-minute rides each day for 30 days",
+        "Unlimited rides each day for 23 working days",
         "Best for: Regular commuters with a predictable daily schedule—business professionals, campus residents, gig economy workers",
-        "Includes: Full month access; 45 minutes per ride free within the pass structure",
+        "Includes: Full month access",
       ],
       gradient: "from-blue-500 to-indigo-700",
     },
     {
       title: "Student Pass",
-      subtitle: "Price: KES 3,500 /month",
+      subtitle: "Price: KES 5,500 /month",
       price: "Unlimited Rides",
       details: [
-        "Same structure as the Monthly Pass (up to 45 minutes per ride each day)",
+        "Same structure as the Monthly Pass",
         "Best for: University and college students with tighter budgets who need daily mobility",
         "Includes: Discounted monthly rate, access to student-only promo periods, possibly campus-located docking stations",
       ],
@@ -98,8 +98,8 @@ export default function PricingSection() {
       subtitle: "Starting from KES 6,000",
       price: "Custom Pricing",
       details: [
-        "Corporate Package: KES 6,000 per employee per month",
-        "Delivery Rider Plan: KES 9,000 per month",
+        "Corporate Package: KES 8,550 per employee per month",
+        "Delivery Rider Plan: KES 7,500 per month",
         "Fleet Leasing: KES 12,000 – KES 15,000 per bike per month",
       ],
       gradient: "from-blue-500 to-indigo-700",
@@ -127,10 +127,10 @@ export default function PricingSection() {
     <section className="bg-white text-gray-900 px-6 py-10 font-lexend">
       {/* Header */}
       <div className="text-center mb-12 max-w-2xl mx-auto">
-        <p className="text-breezo-green uppercase tracking-[0.25em] text-sm sm:text-base font-semibold mb-4">
+        <p className="text-breezo-orange uppercase tracking-[0.25em] text-sm sm:text-base font-semibold mb-4">
           moving smarter while spending less
         </p>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-lexend text-breezo-green leading-tight mb-6 uppercase">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-lexend text-black leading-tight mb-6 uppercase">
           payment plans
         </h2>
         <p className="text-gray-600 text-sm sm:text-base">

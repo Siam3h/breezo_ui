@@ -21,7 +21,7 @@ export default function Index() {
       <ImpactSection />
        <div className="w-full border-t border-double border-gray-300" />
       <HowToBreezo />
-      <Pattern2 />
+      <Pattern />
       <PricingSection />
       <FaqSection />
       <Footer />
