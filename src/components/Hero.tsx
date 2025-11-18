@@ -95,7 +95,7 @@ const Hero = () => {
           <div className="flex justify-center">
             <Button
               onClick={handleFindBikes}
-              className="bg-breezo-green hover:bg-breezo-green-dark text-white uppercase rounded-none px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base transition duration-300 font-lexend"
+              className="bg-breezo-blue hover:bg-breezo-green-dark text-white uppercase rounded-none px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base transition duration-300 font-lexend"
             >
               Ignite your Ride
             </Button>
