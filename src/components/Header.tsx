@@ -153,53 +153,95 @@ const Header = () => {
         </button>
 
         {/* Mobile Links */}
-        <div className="flex flex-col space-y-6 mt-4 text-gray-900">
-          <Link
-            to="/vehicles"
-            className="flex items-center gap-3 font-lexend font-semibold hover:text-breezo-green transition"
-            onClick={() => setIsOpen(false)}
-          >
-            <AnimatedIcon animationData={bikeAnimation} size={40} />
-            Our E-BIkes & Scooters
-          </Link>
+        
+<div className="flex flex-col  mt-4 text-gray-900">
 
-          {/* Account links */}
-          <div className="flex flex-col gap-2 font-lexend font-semibold">
-            <Link
-              to="/auth/login"
-              className="hover:text-breezo-green transition"
-              onClick={() => setIsOpen(false)}
-            >
-              Login
-            </Link>
-            <Link
-              to="/auth/register"
-              className="hover:text-breezo-green transition"
-              onClick={() => setIsOpen(false)}
-            >
-              Signup
-            </Link>
-          </div>
+  {/* Vehicles */}
+  <Link
+    to="/vehicles"
+    className="flex items-center gap-3 py-2 font-lexend font-semibold hover:text-breezo-green transition"
+    onClick={() => setIsOpen(false)}
+  >
+    <AnimatedIcon animationData={bikeAnimation} size={40} />
+    Our E-Bikes & Scooters
+  </Link>
+          
 
-          {/* Download */}
-          <Link
-            to="/download"
-            className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-2 rounded-none transition font-lexend font-semibold"
-            onClick={() => setIsOpen(false)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 12l4-4m-4 4l-4-4m8 8H8" />
-            </svg>
-            Download App
-          </Link>
-        </div>
+  {/* Account Dropdown */}
+  <div className="flex flex-col">
+    <button
+      className="flex items-center justify-between py-2 font-lexend font-semibold text-left hover:text-breezo-green transition"
+      onClick={() => setShowAccountMenu((prev) => !prev)}
+    >
+    <AnimatedIcon animationData={accountAnimation} size={35} />
+      <span>Account</span>
+
+      <svg
+        className={`w-5 h-5 transition-transform ${
+          showAccountMenu ? "rotate-180" : ""
+        }`}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    {/* Dropdown Panel */}
+    <div
+      className={`overflow-hidden transition-all duration-300 ${
+        showAccountMenu ? "max-h-40 mt-2" : "max-h-0"
+      }`}
+    >
+      <div className="flex flex-col gap-3 pl-4 border-l-2 border-gray-200 py-2 font-lexend font-semibold">
+        <Link
+          to="/auth/login"
+          className="hover:text-breezo-green transition"
+          onClick={() => {
+            setIsOpen(false);
+            setShowAccountMenu(false);
+          }}
+        >
+          Login
+        </Link>
+
+        <Link
+          to="/auth/register"
+          className="hover:text-breezo-green transition"
+          onClick={() => {
+            setIsOpen(false);
+            setShowAccountMenu(false);
+          }}
+        >
+          Signup
+        </Link>
+      </div>
+    </div>
+  </div>
+
+
+  {/* Download CTA */}
+  <Link
+    to="/download"
+    className="flex items-center gap-2 bg-breezo-green hover:bg-breezo-green-dark text-[#404040] px-5 py-3 mt-4 rounded-none transition font-lexend font-semibold shadow-md active:scale-[.98]"
+    onClick={() => setIsOpen(false)}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      className="w-5 h-5"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 12l4-4m-4 4l-4-4m8 8H8" />
+    </svg>
+    Download App
+  </Link>
+</div>
+
       </motion.div>
     </header>
   );
