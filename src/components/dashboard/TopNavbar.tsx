@@ -1,3 +1,6 @@
+// components/dashboard/TopNavbar.tsx
+
+import { useState, useEffect, useRef } from "react";
 import {
   LogOut,
   WalletIcon,
@@ -21,7 +24,7 @@ interface TopNavbarProps {
   onLogout: () => void;
   userRole: string;
   onToggleMobileMenu: () => void;
-  isMobileMenuOpen: boolean; // ✅ added
+  isMobileMenuOpen: boolean;
 }
 
 const isAdminOrStaff = (role: string) =>
@@ -68,11 +71,25 @@ const TopNavbar = ({
   const currentActive =
     activeSection === "dashboard" || !activeSection ? "ride" : activeSection;
   const visibleNavItems = navItems(userRole);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-        {/* Left Side: Logo */}
         <div
           className="flex items-center cursor-pointer"
           onClick={() =>
@@ -82,7 +99,6 @@ const TopNavbar = ({
           <img src="/logo4.png" alt="Company Logo" className="h-8 w-auto" />
         </div>
 
-        {/* Navigation Links (Desktop Only) */}
         <nav className="hidden md:flex flex-1 justify-center space-x-1">
           {visibleNavItems
             .filter((item) => item.section !== "manage_account")
@@ -92,9 +108,9 @@ const TopNavbar = ({
                 <button
                   key={item.name}
                   onClick={() => onSelect(item.section)}
-                  className={`flex items-center gap-2 px-4 py-2 font-medium text-sm rounded-full transition-colors duration-200 ${
+                  className={`flex items-center gap-2 px-4 py-2 font-medium text-sm rounded-sm transition-colors duration-200 ${
                     isActive
-                      ? "bg-gray-900 text-white"
+                      ? "bg-breezo-green text-white"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
                 >
@@ -105,43 +121,62 @@ const TopNavbar = ({
             })}
         </nav>
 
-        {/* Right Side: Logout (Desktop) / Hamburger (Mobile) */}
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 p-1 rounded-full hover:bg-gray-100 cursor-pointer">
-              <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center font-semibold text-white text-sm">
-                {userEmail?.charAt(0).toUpperCase()}
+            {/* --- START: DROPDOWN MENU --- */}
+            <div className="relative" ref={dropdownRef}>
+              <div
+                className="flex items-center space-x-2 p-1 rounded-full hover:bg-gray-100 cursor-pointer"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <div className="w-8 h-8 bg-breezo-orange rounded-full flex items-center justify-center font-semibold text-white text-sm">
+                  {userEmail?.charAt(0).toUpperCase()}
+                </div>
+                <div className="text-left hidden lg:block">
+                  <p className="text-sm font-medium text-gray-800 truncate max-w-[120px]">
+                    {userEmail}
+                  </p>
+                  <p className="text-xs text-gray-500 capitalize">
+                    {userRole.replace("_", " ")}
+                  </p>
+                </div>
+                <ChevronDown
+                  className={`w-4 h-4 text-gray-500 hidden lg:block transition-transform duration-200 ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
               </div>
-              <div className="text-left hidden lg:block">
-                <p className="text-sm font-medium text-gray-800 truncate max-w-[120px]">
-                  {userEmail}
-                </p>
-                <p className="text-xs text-gray-500 capitalize">
-                  {userRole.replace("_", " ")}
-                </p>
-              </div>
-              <ChevronDown className="w-4 h-4 text-gray-500 hidden lg:block" />
-            </div>
 
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg border py-1 z-10">
+                  <button
+                    onClick={() => {
+                      onSelect("manage_account");
+                      setIsDropdownOpen(false);
+                    }}
+                    className="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>Manage Account</span>
+                  </button>
+                </div>
+              )}
+            </div>
+            {/* --- END: DROPDOWN MENU --- */}
+
+            {/* --- START: RE-INTRODUCED LOGOUT BUTTON --- */}
             <button
               onClick={onLogout}
-              className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors flex items-center gap-1"
+              className="bg-breezo-green text-white px-4 py-2 rounded-sm text-sm font-medium hover:bg-breezo-orange transition-colors flex items-center gap-1"
             >
               <LogOut className="w-4 h-4" />
               <span>Logout</span>
             </button>
+            {/* --- END: RE-INTRODUCED LOGOUT BUTTON --- */}
           </div>
 
-          {/* Mobile: Hamburger / Close Icon */}
-          <button
-            className="md:hidden p-2 transition-transform duration-200"
-            onClick={onToggleMobileMenu}
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-gray-800" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-800" />
-            )}
+          <button className="md:hidden p-2" onClick={onToggleMobileMenu}>
+            {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
       </div>
