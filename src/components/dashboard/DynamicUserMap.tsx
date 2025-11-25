@@ -2,19 +2,18 @@ import React, { useState, useEffect } from "react";
 import Map, { Marker } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 
-const DEFAULT_CENTER: [number, number] = [36.817223, -1.286389];
+const DEFAULT_CENTER: [number, number] = [36.817223, -1.286389]; // lng, lat
 const DEFAULT_ZOOM = 16;
 
-
-const MAPLIBRE_STYLE = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
-
-
+const MAPLIBRE_STYLE =
+  "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
 
 const DynamicUserMap: React.FC = () => {
   const [coords, setCoords] = useState({
     lat: DEFAULT_CENTER[1],
     lng: DEFAULT_CENTER[0],
   });
+
   const [locationError, setLocationError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,8 +33,20 @@ const DynamicUserMap: React.FC = () => {
         setLoading(false);
       },
       (error) => {
+        console.warn("Geolocation Error → using default center:", error.message);
+
+        // Handle gracefully: use DEFAULT_CENTER
         setLocationError(error.message);
+        setCoords({
+          lat: DEFAULT_CENTER[1],
+          lng: DEFAULT_CENTER[0],
+        });
         setLoading(false);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0,
       }
     );
   }, []);
@@ -44,17 +55,24 @@ const DynamicUserMap: React.FC = () => {
     <div className="w-full h-screen flex flex-col">
       <div className="bg-gray-800 text-white p-4">
         <h1 className="text-2xl font-bold">Your Location</h1>
-        {loading && <p className="text-sm text-gray-300">Getting your location...</p>}
-        {locationError && (
-          <p className="text-sm text-red-400">Error: {locationError}</p>
+
+        {loading && (
+          <p className="text-sm text-gray-300">Getting your location...</p>
         )}
-        {!loading && !locationError && (
+
+        {locationError && (
+          <p className="text-sm text-breezo-orange">
+            Location unavailable — showing default map
+          </p>
+        )}
+
+        {!loading && (
           <p className="text-sm text-gray-300">
             Lat: {coords.lat.toFixed(6)}, Lng: {coords.lng.toFixed(6)}
           </p>
         )}
       </div>
-      
+
       <div className="flex-1 relative">
         <Map
           initialViewState={{
@@ -62,8 +80,8 @@ const DynamicUserMap: React.FC = () => {
             longitude: coords.lng,
             zoom: DEFAULT_ZOOM,
           }}
-          style={{ width: "100%", height: "100%" }}
           mapStyle={MAPLIBRE_STYLE}
+          style={{ width: "100%", height: "100%" }}
         >
           <Marker latitude={coords.lat} longitude={coords.lng}>
             <div className="relative">
@@ -71,9 +89,9 @@ const DynamicUserMap: React.FC = () => {
                 style={{
                   width: 20,
                   height: 20,
-                  background: "#3b82f6",
+                  background: "#F46524",
                   borderRadius: "50%",
-                  border: "3px solid white",
+                  border: "3px solid #60E24D",
                   boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
                 }}
               />
