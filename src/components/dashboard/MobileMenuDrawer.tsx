@@ -12,7 +12,7 @@ import {
   LogOut, // Import LogOut icon for consistency
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useWallet } from "@/context/WalletContext";
+//import { useWallet } from "@/context/WalletContext";
 
 interface MobileMenuDrawerProps {
   isOpen: boolean;
@@ -31,7 +31,8 @@ const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
   onLogout,
   onSelectSection,
 }) => {
-  const { balance } = useWallet();
+  //const { balance } = useWallet();
+  const { balance } = 1000;
 
   const handleSelect = (section: string) => {
     onSelectSection(section);
