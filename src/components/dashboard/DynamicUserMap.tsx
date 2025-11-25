@@ -3,9 +3,10 @@ import Map, { Marker } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 const DEFAULT_CENTER: [number, number] = [36.817223, -1.286389];
-const DEFAULT_ZOOM = 13;
+const DEFAULT_ZOOM = 16;
 
-const MAPLIBRE_STYLE = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
+const MAPLIBRE_STYLE = "https://tiles.stadiamaps.com/styles/outdoors.json";
+
 
 const DynamicUserMap: React.FC = () => {
   const [coords, setCoords] = useState({

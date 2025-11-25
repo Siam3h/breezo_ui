@@ -63,6 +63,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="font-lexend w-full px-3 py-3 outline-none font-semibold text-gray-900 placeholder-gray-500 bg-transparent"
                 required
+                autoComplete="email"
               />
             </div>
           </div>
@@ -81,6 +82,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full font-lexend px-3 py-3 outline-none font-semibold text-gray-900 placeholder-gray-500 bg-transparent"
                 required
+                autoComplete="current-password"
               />
             </div>
           </div>
