@@ -1,66 +1,119 @@
-// RideForm.tsx
-import {
-  MapPin, // For location fields
-  Bike, // For bike station fields
-  Square,
-  Clock,
-  User,
-  ChevronDown,
-  Utensils,
-  Zap,
-} from "lucide-react";
+"use client";
+
+import { MapPin, Bike } from "lucide-react";
+import { useRide } from "@/context/RideContext";
+import { useState } from "react";
 
 const RideForm = () => {
+  const {
+    userLocation,
+    nearestStation,
+    destinationText,
+    setDestinationText,
+    destinationSuggestions,
+    setSelectedDestination,
+    destinationDock,
+    setDestinationSuggestions,
+  } = useRide();
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
   return (
-    <div className="w-full md:w-[380px] p-4 md:p-6 bg-white md:shadow-xl md:rounded-lg h-fit z-10 space-y-4 font-lexend">
-      {/* 
-        The component is updated with icons for each input field and has reduced padding
-        on inputs and the button for a more compact appearance.
-      */}
-
-      {/* Pickup location */}
-      <div className="flex items-center bg-gray-100 p-2 rounded-none hover:bg-gray-200 transition duration-150 px-4">
-        <MapPin className="w-5 h-5 text-gray-500 mr-3 flex-shrink-0" />
-        <input
-          type="text"
-          value="My Location"
-          className="flex-grow bg-transparent focus:outline-none text-gray-800 font-medium"
-          readOnly
-        />
+    <div className="w-full md:w-[380px] p-4 md:p-6 bg-white md:shadow-xl md:rounded-lg h-fit z-10 space-y-4 font-lexend relative">
+      {/* MY LOCATION */}
+      <div className="flex flex-col">
+        <span className="text-gray-500 text-sm mb-1">
+          Your Current Location
+        </span>
+        <div className="flex items-center bg-gray-100 p-2 px-4 rounded">
+          <MapPin className="w-5 h-5 text-gray-500 mr-3" />
+          <input
+            type="text"
+            value={userLocation || "Locating..."}
+            className="flex-grow bg-transparent focus:outline-none text-gray-800 font-medium"
+            readOnly
+          />
+        </div>
       </div>
 
-      {/* Destination Input Field */}
-      <div className="flex items-center bg-gray-100 p-2 rounded-none hover:bg-gray-200 transition duration-150 px-4">
-        <MapPin className="w-5 h-5 text-gray-500 mr-3 flex-shrink-0" />
-        <input
-          type="text"
-          placeholder="Destination"
-          className="w-full bg-transparent focus:outline-none text-gray-800 placeholder-gray-500 font-medium"
-        />
+      {/* DESTINATION INPUT */}
+      <div className="relative flex flex-col">
+        <span className="text-gray-500 text-sm mb-1">Destination</span>
+        <div className="flex items-center bg-gray-100 p-2 px-4 rounded">
+          <MapPin className="w-5 h-5 text-gray-500 mr-3" />
+          <input
+            type="text"
+            placeholder="Destination"
+            value={destinationText}
+            onFocus={() => setDropdownOpen(true)}
+            onChange={(e) => {
+              setDestinationText(e.target.value);
+              setDropdownOpen(true);
+            }}
+            className="w-full bg-transparent focus:outline-none text-gray-800 placeholder-gray-500 font-medium"
+          />
+        </div>
+
+        {/* AUTOCOMPLETE DROPDOWN */}
+        {isDropdownOpen && destinationSuggestions.length > 0 && (
+          <div className="absolute w-full bg-white shadow-lg border z-20 max-h-52 overflow-y-auto">
+            {destinationSuggestions.map((s, i) => (
+              <div
+                key={i}
+                className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                onClick={() => {
+                  setDestinationText(s.display_name);
+                  setSelectedDestination(s);
+                  setDropdownOpen(false);
+                  setDestinationSuggestions([]);
+                }}
+              >
+                {s.display_name}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Docking Station Destination Input Field */}
-      <div className="flex items-center bg-gray-100 p-2 rounded-none hover:bg-gray-200 transition duration-150 px-4">
-        <Bike className="w-5 h-5 text-gray-500 mr-3 flex-shrink-0" />
-        <input
-          type="text"
-          placeholder="Docking Station Destination"
-          className="w-full bg-transparent focus:outline-none text-gray-800 placeholder-gray-500 font-medium"
-        />
+      {/* DOCKING STATION NEAR DESTINATION */}
+      <div className="flex flex-col">
+        <span className="text-gray-500 text-sm mb-1">
+          Docking Station Near Destination
+        </span>
+        <div className="flex items-center bg-gray-100 p-2 px-4 rounded">
+          <Bike className="w-5 h-5 text-gray-500 mr-3" />
+          <input
+            type="text"
+            value={
+              destinationDock
+                ? destinationDock.name
+                : "Docking Station Destination"
+            }
+            readOnly
+            className="w-full bg-transparent text-gray-800 font-medium"
+          />
+        </div>
       </div>
 
-      {/* Nearest Docking Station Input Field */}
-      <div className="flex items-center bg-gray-100 p-2 rounded-none hover:bg-gray-200 transition duration-150 px-4">
-        <Bike className="w-5 h-5 text-gray-500 mr-3 flex-shrink-0" />
-        <input
-          type="text"
-          placeholder="Nearest Docking Station"
-          className="w-full bg-transparent focus:outline-none text-gray-800 placeholder-gray-500 font-medium"
-        />
+      {/* NEAREST DOCKING STATION TO USER */}
+      <div className="flex flex-col">
+        <span className="text-gray-500 text-sm mb-1">
+          Nearest Docking Station To You
+        </span>
+        <div className="flex items-center bg-gray-100 p-2 px-4 rounded">
+          <Bike className="w-5 h-5 text-gray-500 mr-3" />
+          <input
+            type="text"
+            value={
+              nearestStation ? nearestStation.name : "Nearest Docking Station"
+            }
+            readOnly
+            className="w-full bg-transparent text-gray-800 font-medium"
+          />
+        </div>
       </div>
 
-      {/* Scan and Ride Button */}
-      <button className=" w-full bg-breezo-green text-white p-2 rounded-none font-semibold hover:bg-breezo-orange transition duration-150 mt-2">
+      <button className="w-full bg-breezo-green text-white p-2 font-semibold hover:bg-breezo-orange transition">
         Scan and Ride
       </button>
     </div>
