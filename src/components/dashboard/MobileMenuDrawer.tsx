@@ -32,7 +32,6 @@ const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
   onSelectSection,
 }) => {
   //const { balance } = useWallet();
-  const { balance } = 1000;
 
   const handleSelect = (section: string) => {
     onSelectSection(section);
@@ -92,9 +91,7 @@ const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
 
               <div className="flex justify-between items-center py-4 border-b border-gray-200">
                 <span className="font-medium text-gray-700">Wallet</span>
-                <span className="font-semibold text-gray-900">
-                  KES {balance.toFixed(2)}
-                </span>
+                <span className="font-semibold text-gray-900">KES 1000</span>
               </div>
 
               <div className="mt-4 space-y-4">

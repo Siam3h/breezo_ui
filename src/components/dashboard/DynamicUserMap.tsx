@@ -1,43 +1,62 @@
-import React, { useState, useEffect } from "react";
-import Map, { Marker } from "react-map-gl/maplibre";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import Map, { Marker, Source, Layer } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import apiClient from "@/lib/apiClient";
+import { useRide } from "@/context/RideContext";
 
-const DEFAULT_CENTER: [number, number] = [36.817223, -1.286389]; // lng, lat
+const DEFAULT_CENTER: [number, number] = [36.817223, -1.286389]; // Nairobi fallback
 const DEFAULT_ZOOM = 16;
-
 const MAPLIBRE_STYLE =
   "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
 
-const DynamicUserMap: React.FC = () => {
-  const [coords, setCoords] = useState({
-    lat: DEFAULT_CENTER[1],
-    lng: DEFAULT_CENTER[0],
-  });
-
+const DynamicMap: React.FC = () => {
+  const { coords, stations, nearestStation } = useRide();
   const [locationError, setLocationError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>(
+    []
+  );
 
-  const [stations, setStations] = useState<any[]>([]);
-  const [stationError, setStationError] = useState<string | null>(null);
-
-  // Fetch stations
+  // Fetch stations if not in context
   useEffect(() => {
-    const fetchStations = async () => {
+    if (stations.length === 0) {
+      apiClient
+        .get("/docks/stations")
+        .then((res) => {
+          // Do nothing, stations are already in context
+        })
+        .catch(() => {
+          setLocationError("Failed to load stations");
+        });
+    }
+  }, [stations]);
+
+  // Watch for route changes when user or nearest station updates
+  useEffect(() => {
+    const fetchRoute = async () => {
+      if (!coords.lat || !coords.lng || !nearestStation) return;
+
       try {
-        const res = await apiClient.get("/docks/stations");
-        console.log(res);
-        const items = res.data?.data || [];
-        setStations(items);
-      } catch (error: any) {
-        setStationError("Failed to load stations");
+        const from = `${coords.lng},${coords.lat}`;
+        const to = `${nearestStation.longitude},${nearestStation.latitude}`;
+        const res = await fetch(
+          `https://router.project-osrm.org/route/v1/driving/${from};${to}?overview=full&geometries=geojson`
+        );
+        const data = await res.json();
+        if (data.routes && data.routes.length > 0) {
+          setRouteCoordinates(data.routes[0].geometry.coordinates);
+        }
+      } catch (err) {
+        console.error("Failed to fetch route:", err);
       }
     };
 
-    fetchStations();
-  }, []);
+    fetchRoute();
+  }, [coords, nearestStation]);
 
-  // User geolocation logic
+  // User geolocation
   useEffect(() => {
     if (!navigator.geolocation) {
       setLocationError("Geolocation is not supported by your browser");
@@ -47,19 +66,16 @@ const DynamicUserMap: React.FC = () => {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setCoords({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        coords.lat = position.coords.latitude;
+        coords.lng = position.coords.longitude;
         setLoading(false);
       },
       (error) => {
-        console.warn("Geolocation Error → using default center:", error.message);
+        console.warn(
+          "Geolocation Error → using default center:",
+          error.message
+        );
         setLocationError(error.message);
-        setCoords({
-          lat: DEFAULT_CENTER[1],
-          lng: DEFAULT_CENTER[0],
-        });
         setLoading(false);
       },
       {
@@ -72,39 +88,35 @@ const DynamicUserMap: React.FC = () => {
 
   return (
     <div className="w-full h-screen flex flex-col font-lexend">
-      {/* STATUS TEXT */}
+      {/* STATUS */}
       <div className="text-breezo-orange p-2 text-sm">
         {loading && <p>Getting your location...</p>}
-
         {locationError && (
           <p className="text-breezo-orange">
             Location unavailable — showing default location
           </p>
         )}
-
-        {!loading && (
+        {!loading && coords.lat && coords.lng && (
           <p className="text-breezo-blue">
             Lat: {coords.lat.toFixed(6)}, Lng: {coords.lng.toFixed(6)}
           </p>
         )}
-
-        {stationError && <p className="text-red-400">{stationError}</p>}
       </div>
 
       {/* MAP */}
       <div className="flex-1 relative">
         <Map
           initialViewState={{
-            latitude: coords.lat,
-            longitude: coords.lng,
+            latitude: coords.lat || DEFAULT_CENTER[1],
+            longitude: coords.lng || DEFAULT_CENTER[0],
             zoom: DEFAULT_ZOOM,
           }}
           mapStyle={MAPLIBRE_STYLE}
           style={{ width: "100%", height: "100%" }}
         >
           {/* USER MARKER */}
-          <Marker latitude={coords.lat} longitude={coords.lng}>
-            <div className="relative">
+          {coords.lat && coords.lng && (
+            <Marker latitude={coords.lat} longitude={coords.lng}>
               <div
                 style={{
                   width: 20,
@@ -115,23 +127,29 @@ const DynamicUserMap: React.FC = () => {
                   boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
                 }}
               />
+            </Marker>
+          )}
+
+          {/* NEAREST DOCK MARKER */}
+          {nearestStation && (
+            <Marker
+              latitude={nearestStation.latitude}
+              longitude={nearestStation.longitude}
+            >
               <div
                 style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: 40,
-                  height: 40,
-                  background: "rgba(59, 130, 246, 0.2)",
+                  width: 24,
+                  height: 24,
+                  background: "#22C55E",
                   borderRadius: "50%",
-                  animation: "pulse 2s infinite",
+                  border: "2px solid #10B981",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
                 }}
               />
-            </div>
-          </Marker>
+            </Marker>
+          )}
 
-          {/* STATION MARKERS */}
+          {/* ALL DOCK STATIONS */}
           {stations.map((s) => (
             <Marker
               key={s.id}
@@ -140,41 +158,43 @@ const DynamicUserMap: React.FC = () => {
               anchor="bottom"
             >
               <div className="flex flex-col items-center">
-                {/* Station Name */}
                 <span className="text-white text-xs bg-black/70 px-2 py-0.5 rounded mb-1">
                   {s.name}
                 </span>
-
-                {/* Glowing Green eBike Icon */}
-                <div className="relative">
-                  <img
-                    src="/bicycle.png"
-                    alt="eBike Station"
-                    style={{ width: 32, height: 32 }}
-                  />
-
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: 50,
-                      height: 50,
-            
-                      filter: "blur(6px)",
-                      animation: "pulse 2s infinite",
-                    }}
-                  />
-                </div>
+                <img
+                  src="/bicycle.png"
+                  alt="eBike Station"
+                  style={{ width: 32, height: 32 }}
+                />
               </div>
             </Marker>
           ))}
+
+          {/* ROUTE FROM USER TO NEAREST DOCK */}
+          {routeCoordinates.length > 0 && (
+            <Source
+              id="route"
+              type="geojson"
+              data={{
+                type: "Feature",
+                geometry: { type: "LineString", coordinates: routeCoordinates },
+              }}
+            >
+              <Layer
+                id="routeLine"
+                type="line"
+                paint={{
+                  "line-color": "#F46524",
+                  "line-width": 4,
+                  "line-opacity": 0.8,
+                }}
+              />
+            </Source>
+          )}
         </Map>
       </div>
-
-         </div>
+    </div>
   );
 };
 
-export default DynamicUserMap;
+export default DynamicMap;

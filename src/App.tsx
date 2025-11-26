@@ -2,6 +2,7 @@ import { StrictMode, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 //import { WalletProvider } from "@/context/WalletContext";
+import { RideProvider } from "@/context/RideContext";
 import { Toaster } from "sonner";
 import LoadingScreen from "@/components/LoadingScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -40,7 +41,7 @@ const App = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-       
+        <RideProvider>
           <Router>
             <Suspense fallback={<LoadingScreen />}>
               <Routes>
@@ -104,7 +105,7 @@ const App = () => (
               invert={false}
             />
           </Router>
-        
+        </RideProvider>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
