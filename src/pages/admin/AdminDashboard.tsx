@@ -8,6 +8,7 @@ import Wallet from "./user_admin/Wallet";
 import BusinessPortal from "@/components/dashboard/BusinessPortal";
 import BikesList from "../bikes/BikesList";
 import MobileMenuDrawer from "@/components/dashboard/MobileMenuDrawer";
+import ManageAccount from "@/components/dashboard/Manage_Account";
 
 const isAdminOrStaff = (role: string) =>
   role === "super_admin" || role === "staff";
@@ -34,14 +35,15 @@ const UserDashboard = () => {
 
   const handleSelectSection = (section: string) => {
     setActiveSection(section);
-    setIsMobileMenuOpen(false);   };
+    setIsMobileMenuOpen(false);
+  };
 
   if (!user) {
     return <div>Loading dashboard...</div>;
   }
 
   const userRole = user.role;
-    const userName = user.email
+  const userName = user.email
     ? user.email
         .split("@")[0]
         .split(".")
@@ -51,7 +53,7 @@ const UserDashboard = () => {
   const cashBalance = 0.0;
 
   const renderContent = () => {
-        if (isAdminOrStaff(userRole)) {
+    if (isAdminOrStaff(userRole)) {
       switch (activeSection) {
         case "fleet_management":
           return (
@@ -101,7 +103,23 @@ const UserDashboard = () => {
       // New/Renamed Personal Tabs Rendering
       case "student":
       case "promos":
-      case "manage_account": // RENAMED FROM "settings"
+        return (
+          <div className="p-8 bg-white shadow rounded-lg h-full flex items-center justify-center">
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-800">
+                {activeSection.charAt(0).toUpperCase() +
+                  activeSection.slice(1).replace("_", " ")}{" "}
+                Page
+              </h2>
+              <p className="text-gray-600">
+                This content is for the {activeSection.replace("_", " ")}{" "}
+                section.
+              </p>
+            </div>
+          </div>
+        );
+      case "manage_account":
+        return <ManageAccount />;
       case "home": // For mobile drawer compatibility
         return (
           <div className="p-8 bg-white shadow rounded-lg h-full flex items-center justify-center">
