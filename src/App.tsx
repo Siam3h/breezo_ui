@@ -42,10 +42,10 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <RideProvider>
-        <WalletProvider>
-          <Router>
-            <Suspense fallback={<LoadingScreen />}>
-              <Routes>
+          <WalletProvider>
+            <Router>
+              <Suspense fallback={<LoadingScreen />}>
+                <Routes>
                 <Route path="/" element={<Index />} />
                 <Route element={<AuthLayout />}>
                   <Route path="/auth/register" element={<Register />} />
@@ -105,9 +105,9 @@ const App = () => (
               richColors
               invert={false}
             />
-          </Router>
+            </Router> 
+          </WalletProvider>
         </RideProvider>
-        </WalletProvider>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
