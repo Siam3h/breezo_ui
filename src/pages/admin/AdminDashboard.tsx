@@ -8,6 +8,8 @@ import Wallet from "./user_admin/Wallet";
 import BusinessPortal from "@/components/dashboard/BusinessPortal";
 import BikesList from "../bikes/BikesList";
 import MobileMenuDrawer from "@/components/dashboard/MobileMenuDrawer";
+import KycVerificationLayout from "@/components/dashboard/KycVerificationLayout";
+import Promo from "@/components/dashboard/Promo";
 
 const isAdminOrStaff = (role: string) =>
   role === "super_admin" || role === "staff";
@@ -34,14 +36,15 @@ const UserDashboard = () => {
 
   const handleSelectSection = (section: string) => {
     setActiveSection(section);
-    setIsMobileMenuOpen(false);   };
+    setIsMobileMenuOpen(false);
+  };
 
   if (!user) {
     return <div>Loading dashboard...</div>;
   }
 
   const userRole = user.role;
-    const userName = user.email
+  const userName = user.email
     ? user.email
         .split("@")[0]
         .split(".")
@@ -51,7 +54,7 @@ const UserDashboard = () => {
   const cashBalance = 0.0;
 
   const renderContent = () => {
-        if (isAdminOrStaff(userRole)) {
+    if (isAdminOrStaff(userRole)) {
       switch (activeSection) {
         case "fleet_management":
           return (
@@ -100,7 +103,9 @@ const UserDashboard = () => {
 
       // New/Renamed Personal Tabs Rendering
       case "student":
+        return <KycVerificationLayout />;
       case "promos":
+        return <Promo />;
       case "manage_account": // RENAMED FROM "settings"
       case "home": // For mobile drawer compatibility
         return (
